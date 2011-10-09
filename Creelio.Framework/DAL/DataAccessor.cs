@@ -273,7 +273,7 @@ namespace Creelio.Framework.DAL
 
         private IEnumerable<DataRow> GetPrimaryKeyDataRows()
         {
-            var dataRows = DBInfo.PrimaryKeys.Rows.ToList<DataRow>().Where(r => r["TABLE_NAME"].ToString() == Table);
+            var dataRows = DBInfo.PrimaryKeyData.Rows.ToList<DataRow>().Where(r => r["TABLE_NAME"].ToString() == Table);
             return dataRows;
         }
 

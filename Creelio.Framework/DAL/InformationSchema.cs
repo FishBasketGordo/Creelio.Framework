@@ -8,15 +8,20 @@ using System.Data;
 
 namespace Creelio.Framework.DAL
 {
-    public class InformationSchema : IDisposable
+    public partial class InformationSchema : IDisposable
     {
         #region Fields
 
-        private DataTable _tables = null;
-        private DataTable _columns = null;
-        private DataTable _primaryKeys = null;
-        private DataTable _identities = null;
+        private DataTable _tableData = null;
+        private DataTable _columnData = null;
+        private DataTable _primaryKeyData = null;
+        private DataTable _identityData = null;
 
+        private List<Table> _tables = null;
+        private List<DataRow> _columns = null;
+        private List<DataRow> _primaryKeys = null;
+        private List<DataRow> _identities = null;
+        
         private SqlDataAdapter _tableDataAdapter = null;
         private SqlDataAdapter _columnDataAdapter = null;
         private SqlDataAdapter _primaryKeyDataAdapter = null;
@@ -26,59 +31,111 @@ namespace Creelio.Framework.DAL
 
         #region Properties
 
-        public DataTable Tables
+        public List<Table> Tables
         {
             get
             {
                 if (_tables == null)
                 {
-                    _tables = new DataTable("INFORMATION_SCHEMA.TABLES");
-                    FillDataTable(_tables, TableDataAdapter);
+                    _tables = Table.CreateList(TableData);
                 }
 
                 return _tables;
             }
         }
 
-        public DataTable Columns
+        public DataTable TableData
+        {
+            get
+            {
+                if (_tableData == null)
+                {
+                    _tableData = new DataTable("INFORMATION_SCHEMA.TABLES");
+                    FillDataTable(_tableData, TableDataAdapter);
+                }
+
+                return _tableData;
+            }
+        }
+
+        public List<DataRow> Columns
         {
             get
             {
                 if (_columns == null)
                 {
-                    _columns = new DataTable("INFORMATION_SCHEMA.COLUMNS");
-                    FillDataTable(_columns, ColumnDataAdapter);
+                    _columns = ToRowList(ColumnData);
                 }
 
                 return _columns;
             }
         }
 
-        public DataTable PrimaryKeys
+        public DataTable ColumnData
+        {
+            get
+            {
+                if (_columnData == null)
+                {
+                    _columnData = new DataTable("INFORMATION_SCHEMA.COLUMNS");
+                    FillDataTable(_columnData, ColumnDataAdapter);
+                }
+
+                return _columnData;
+            }
+        }
+
+        public List<DataRow> PrimiaryKeys
         {
             get
             {
                 if (_primaryKeys == null)
                 {
-                    _primaryKeys = new DataTable("PrimaryKeys");
-                    FillDataTable(_primaryKeys, PrimaryKeyDataAdapter);
+                    _primaryKeys = ToRowList(PrimaryKeyData);
                 }
 
                 return _primaryKeys;
             }
         }
 
-        public DataTable Identities
+        public DataTable PrimaryKeyData
+        {
+            get
+            {
+                if (_primaryKeyData == null)
+                {
+                    _primaryKeyData = new DataTable("PrimaryKeys");
+                    FillDataTable(_primaryKeyData, PrimaryKeyDataAdapter);
+                }
+
+                return _primaryKeyData;
+            }
+        }
+
+        public List<DataRow> Identities
         {
             get
             {
                 if (_identities == null)
                 {
-                    _identities = new DataTable("Identities");
-                    FillDataTable(_identities, IdentityDataAdapter);
+                    _identities = ToRowList(IdentityData);
                 }
 
                 return _identities;
+            }
+        }
+
+        public DataTable IdentityData
+        {
+            get
+            {
+                if (_identityData == null)
+                {
+                    _identityData = new DataTable("Identities");
+                    FillDataTable(_identityData, IdentityDataAdapter);
+                }
+
+                return _identityData;
             }
         }
 
@@ -219,6 +276,11 @@ namespace Creelio.Framework.DAL
             {
                 CloseConnection();
             }
+        }
+
+        private List<DataRow> ToRowList(DataTable dt)
+        {
+            return dt.Rows.Cast<DataRow>().ToList();
         }
 
         private void CloseConnection()

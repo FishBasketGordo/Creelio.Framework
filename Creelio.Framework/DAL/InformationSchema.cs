@@ -18,9 +18,9 @@ namespace Creelio.Framework.DAL
         private DataTable _identityData = null;
 
         private List<Table> _tables = null;
-        private List<DataRow> _columns = null;
-        private List<DataRow> _primaryKeys = null;
-        private List<DataRow> _identities = null;
+        private List<Column> _columns = null;
+        private List<PrimaryKey> _primaryKeys = null;
+        private List<Identity> _identities = null;
         
         private SqlDataAdapter _tableDataAdapter = null;
         private SqlDataAdapter _columnDataAdapter = null;
@@ -58,13 +58,13 @@ namespace Creelio.Framework.DAL
             }
         }
 
-        public List<DataRow> Columns
+        public List<Column> Columns
         {
             get
             {
                 if (_columns == null)
                 {
-                    _columns = ToRowList(ColumnData);
+                    _columns = Column.CreateList(ColumnData);
                 }
 
                 return _columns;
@@ -85,13 +85,13 @@ namespace Creelio.Framework.DAL
             }
         }
 
-        public List<DataRow> PrimiaryKeys
+        public List<PrimaryKey> PrimiaryKeys
         {
             get
             {
                 if (_primaryKeys == null)
                 {
-                    _primaryKeys = ToRowList(PrimaryKeyData);
+                    _primaryKeys = PrimaryKey.CreateList(PrimaryKeyData);
                 }
 
                 return _primaryKeys;
@@ -112,13 +112,13 @@ namespace Creelio.Framework.DAL
             }
         }
 
-        public List<DataRow> Identities
+        public List<Identity> Identities
         {
             get
             {
                 if (_identities == null)
                 {
-                    _identities = ToRowList(IdentityData);
+                    _identities = Identity.CreateList(IdentityData);
                 }
 
                 return _identities;
@@ -255,6 +255,21 @@ namespace Creelio.Framework.DAL
         #endregion
 
         #region Methods
+
+        public static InformationSchema CreateAndDisconnect(string connectionString)
+        {
+            InformationSchema info;
+            using (info = new InformationSchema(connectionString))
+            {
+                // Force table adapters to fill DataTable objects.
+                GC.KeepAlive(info.TableData);
+                GC.KeepAlive(info.ColumnData);
+                GC.KeepAlive(info.PrimaryKeyData);
+                GC.KeepAlive(info.IdentityData);
+            }
+
+            return info;
+        }
 
         public void Dispose()
         {

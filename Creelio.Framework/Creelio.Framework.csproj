@@ -53,6 +53,8 @@
     <Compile Include="DAL\InformationSchema.Column.cs" />
     <Compile Include="DAL\DataAccessor.cs" />
     <Compile Include="DAL\InformationSchema.Entity.cs" />
+    <Compile Include="DAL\InformationSchema.Identity.cs" />
+    <Compile Include="DAL\InformationSchema.PrimaryKey.cs" />
     <Compile Include="DAL\Interfaces\IDataAccessor.cs" />
     <Compile Include="DAL\Interfaces\IDataModifier.cs" />
     <Compile Include="DAL\InformationSchema.cs" />

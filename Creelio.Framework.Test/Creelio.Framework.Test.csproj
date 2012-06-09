@@ -33,7 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AnalysisServices, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.DataWarehouse.Interfaces, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ExceptionMessageBox, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
       <HintPath>..\..\EntLib50Src\Blocks\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
     </Reference>
@@ -41,15 +44,28 @@
       <HintPath>..\..\EntLib50Src\Blocks\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.Smo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.Client, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.VersionControl.Client, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.TextTemplating.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="T4Toolbox.10.0, Version=10.10.13.1, Culture=neutral, PublicKeyToken=7e313accbcce84dc, processorArchitecture=x86" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
@@ -57,15 +73,269 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InformationSchemaTest.cs" />
+    <Compile Include="Core\Data\SmoDataProviderTest.cs" />
+    <Compile Include="Core\Extensions\IComparableExtensionsTests.cs" />
+    <Compile Include="Core\Extensions\IEnumerableExtensionsTest.cs" />
+    <Compile Include="Core\Extensions\IntExtensionsTest.cs" />
+    <Compile Include="Core\GuardTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Core\Data\SmoDataProviderTest_Checkbook.cs" />
+    <Compile Include="Templating\Sql\ColumnConstraintTest.cs" />
+    <Compile Include="Templating\Sql\ColumnTest.cs" />
+    <Compile Include="Templating\Sql\ConstraintGroupTest.cs" />
+    <Compile Include="Templating\Sql\ConstraintTest.cs" />
+    <Compile Include="Templating\Sql\EqualityConstraintTest.cs" />
+    <Compile Include="Templating\Sql\InequalityConstraintTest.cs" />
+    <Compile Include="Templating\Sql\ListConstraintTest.cs" />
+    <Compile Include="Templating\Sql\NonEqualityTest.cs" />
+    <Compile Include="Templating\Sql\SubSelectConstraintTest.cs" />
+    <Compile Include="Templating\Sql\TestColumns.cs" />
+    <Compile Include="Templating\Sql\TestConstraints.cs" />
+    <Compile Include="Templating\Sql\ValueConstraintTest.cs" />
+    <Compile Include="Templating\Sql\WhereClauseTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Creelio.Framework\Creelio.Framework.csproj">
+    <ProjectReference Include="..\Creelio.Framework.Templating.Sql\Creelio.Framework.Templating.Sql.csproj">
+      <Project>{CD824F74-0F0E-4C4D-B64D-AFCAE5B0C15B}</Project>
+      <Name>Creelio.Framework.Templating.Sql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Creelio.Framework.Templating\Creelio.Framework.Templating.csproj">
+      <Project>{FE55A910-C1DE-46E6-A430-F07EE5E300BA}</Project>
+      <Name>Creelio.Framework.Templating</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Creelio.Framework\Creelio.Framework.Core.csproj">
       <Project>{E55167AB-5744-4577-8A2E-BC8D474D3B34}</Project>
-      <Name>Creelio.Framework</Name>
+      <Name>Creelio.Framework.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Templating\CrudGeneratorTest.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CrudGeneratorTest.txt</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Templating\AccountHistory_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AccountHistory_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AccountTypeHistory_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AccountTypeHistory_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AccountType_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AccountType_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\Account_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\Account_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AllocationDataHistory_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AllocationDataHistory_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AllocationData_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AllocationData_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AllocationHistory_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AllocationHistory_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AllocationTypeAccountHistory_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AllocationTypeAccountHistory_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AllocationTypeAccount_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AllocationTypeAccount_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AllocationTypeFieldHistory_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AllocationTypeFieldHistory_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AllocationTypeField_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AllocationTypeField_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AllocationTypeHistory_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AllocationTypeHistory_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AllocationType_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\AllocationType_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\Allocation_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\Allocation_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\BillFrequencyHistory_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\BillFrequencyHistory_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\BillFrequency_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\BillFrequency_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\BillHistory_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\BillHistory_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\Bill_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\Bill_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\CrudGeneratorTest.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\DataTypeHistory_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\DataTypeHistory_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\DataType_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\DataType_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\FundBudgetHistory_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\FundBudgetHistory_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\FundBudget_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\FundBudget_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\FundHistory_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\FundHistory_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\FundTypeHistory_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\FundTypeHistory_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\FundType_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\FundType_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\Fund_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\Fund_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\sysdiagrams_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\sysdiagrams_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\TransactionHistory_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\TransactionHistory_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\Transaction_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\Transaction_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\UserAccountHistory_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\UserAccountHistory_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\UserAccount_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\UserAccount_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\UserFundHistory_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\UserFundHistory_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\UserFund_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\UserFund_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\UserHistory_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\UserHistory_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\User_COUNT.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+    <Content Include="Templating\User_DELETE.sql">
+      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

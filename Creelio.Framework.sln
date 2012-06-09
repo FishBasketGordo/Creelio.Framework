@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Creelio.Framework", "Creelio.Framework\Creelio.Framework.csproj", "{E55167AB-5744-4577-8A2E-BC8D474D3B34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Creelio.Framework.Core", "Creelio.Framework\Creelio.Framework.Core.csproj", "{E55167AB-5744-4577-8A2E-BC8D474D3B34}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Creelio.Framework.Test", "Creelio.Framework.Test\Creelio.Framework.Test.csproj", "{FBFE9F6E-C9F9-4235-B278-9FD12EF4B6EA}"
 EndProject
@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Local.testsettings = Local.testsettings
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Creelio.Framework.Templating", "Creelio.Framework.Templating\Creelio.Framework.Templating.csproj", "{FE55A910-C1DE-46E6-A430-F07EE5E300BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Creelio.Framework.Templating.Sql", "Creelio.Framework.Templating.Sql\Creelio.Framework.Templating.Sql.csproj", "{CD824F74-0F0E-4C4D-B64D-AFCAE5B0C15B}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -29,6 +33,14 @@ Global
 		{FBFE9F6E-C9F9-4235-B278-9FD12EF4B6EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBFE9F6E-C9F9-4235-B278-9FD12EF4B6EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBFE9F6E-C9F9-4235-B278-9FD12EF4B6EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE55A910-C1DE-46E6-A430-F07EE5E300BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE55A910-C1DE-46E6-A430-F07EE5E300BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE55A910-C1DE-46E6-A430-F07EE5E300BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE55A910-C1DE-46E6-A430-F07EE5E300BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD824F74-0F0E-4C4D-B64D-AFCAE5B0C15B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD824F74-0F0E-4C4D-B64D-AFCAE5B0C15B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD824F74-0F0E-4C4D-B64D-AFCAE5B0C15B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD824F74-0F0E-4C4D-B64D-AFCAE5B0C15B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

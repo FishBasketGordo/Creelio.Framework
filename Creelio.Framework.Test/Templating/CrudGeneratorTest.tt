@@ -1,0 +1,15 @@
+﻿<#@ template debug="false" hostspecific="True" language="C#" #>
+<#@ output extension="txt" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ assembly name="T4Toolbox.10.0" #>
+<#@ assembly name="$(TargetDir)Creelio.Framework.Templating.dll" #>
+<#@ import namespace="Creelio.Framework.Templating.Generators" #>
+<#@ import namespace="Creelio.Framework.Templating.Extensions.TextTransformationExtensions" #>
+<#
+    var generator = new CrudGenerator(
+		this.GetConnectionString("CheckbookConnectionString", Host.ResolvePath(@"..\App.config")),
+		"Checkbook"
+	);
+	generator.Host = Host;
+    generator.Run();
+#>

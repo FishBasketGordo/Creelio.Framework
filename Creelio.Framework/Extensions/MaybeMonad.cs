@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Creelio.Framework.Extensions
+﻿namespace Creelio.Framework.Core.Extensions.MaybeMonad
 {
+    using System;
+
     /// <summary>
     /// Extension methods used to ensure operations on reference type instances that might be null.
     /// </summary>
@@ -63,18 +60,6 @@ namespace Creelio.Framework.Extensions
             }
         }
 
-        public static bool Exists<TInput>(this TInput input)
-            where TInput : class
-        {
-            return input != null;
-        }
-
-        public static bool NotExists<TInput>(this TInput input)
-            where TInput : class
-        {
-            return input == null;
-        }
-
         public static TInput Do<TInput>(this TInput input, Action<TInput> action)
             where TInput : class
         {
@@ -107,21 +92,7 @@ namespace Creelio.Framework.Extensions
             }
         }
 
-        public static TInput DoIfExists<TInput>(this TInput input, Action<TInput> action)
-            where TInput : class
-        {
-            if (input == null)
-            {
-                return null;
-            }
-            else
-            {
-                action(input);
-                return input;
-            }
-        }
-
-        public static TInput DoIfNotExists<TInput>(this TInput input, Action<TInput> action)
+        public static TInput DoIfNull<TInput>(this TInput input, Action<TInput> action)
             where TInput : class
         {
             if (input == null)
@@ -135,37 +106,83 @@ namespace Creelio.Framework.Extensions
             }
         }
 
-        public static TInput ThrowIfNotExists<TInput>(this TInput input, string errorMsg)
-            where TInput : class
+        public static TInput ThrowIfNull<TInput>(this TInput input, string errorMsg)
         {
-            return ThrowIf(input, x => false, errorMsg);
+            return ThrowIf(input, i => i == null, errorMsg);
         }
 
-        public static TInput ThrowIfNotExists<TInput>(this TInput input, Exception ex)
-            where TInput : class
+        public static TInput ThrowIfNull<TInput, TException>(this TInput input, Func<TException> getEx)
+            where TException : Exception
         {
-            return ThrowIf(input, x => false, ex);
+            return ThrowIf(input, i => i == null, getEx);
+        }
+
+        public static TInput ThrowIfNull<TInput, TException>(this TInput input, Func<TInput, TException> getEx)
+            where TException : Exception
+        {
+            return ThrowIf(input, i => i == null, getEx);
+        }
+
+        public static string ThrowIfNullOrEmpty(this string input, string errorMsg)
+        {
+            return ThrowIf<string>(input, i => string.IsNullOrEmpty(i), errorMsg);
+        }
+
+        public static string ThrowIfNullOrEmpty<TException>(this string input, Func<TException> getEx)
+            where TException : Exception
+        {
+            return ThrowIf<string, TException>(input, i => string.IsNullOrEmpty(i), getEx);
+        }
+
+        public static string ThrowIfNullOrEmpty<TException>(this string input, Func<string, TException> getEx)
+            where TException : Exception
+        {
+            return ThrowIf<string, TException>(input, i => string.IsNullOrEmpty(i), getEx);
+        }
+
+        public static string ThrowIfNullOrWhiteSpace(this string input, string errorMsg)
+        {
+            return ThrowIf<string>(input, i => string.IsNullOrWhiteSpace(i), errorMsg);
+        }
+
+        public static string ThrowIfNullOrWhiteSpace<TException>(this string input, Func<TException> getEx)
+            where TException : Exception
+        {
+            return ThrowIf<string, TException>(input, i => string.IsNullOrWhiteSpace(i), getEx);
+        }
+
+        public static string ThrowIfNullOrWhiteSpace<TException>(this string input, Func<string, TException> getEx)
+            where TException : Exception
+        {
+            return ThrowIf<string, TException>(input, i => string.IsNullOrWhiteSpace(i), getEx);
         }
 
         public static TInput ThrowIf<TInput>(this TInput input, Predicate<TInput> evaluator, string errorMsg)
         {
-            return ThrowIf(input, evaluator, new Exception(errorMsg ?? "An error occurred"));
+            return ThrowIf(input, evaluator, () => new Exception(errorMsg ?? "An error occurred"));
         }
 
-        public static TInput ThrowIf<TInput>(this TInput input, Predicate<TInput> evaluator, Exception ex)
+        public static TInput ThrowIf<TInput, TException>(this TInput input, Predicate<TInput> evaluator, Func<TException> getEx)
+            where TException : Exception
+        {
+            return ThrowIf(input, evaluator, i => getEx());
+        }
+
+        public static TInput ThrowIf<TInput, TException>(this TInput input, Predicate<TInput> evaluator, Func<TInput, TException> getEx)
+            where TException : Exception
         {
             if (evaluator == null)
             {
                 throw new ArgumentNullException("evaluator");
             }
-            else if (ex == null)
+            else if (getEx == null)
             {
-                throw new ArgumentNullException("ex");
+                throw new ArgumentNullException("getEx");
             }
 
-            if (input == null || evaluator(input))
+            if (evaluator(input))
             {
-                throw ex;
+                throw getEx(input);
             }
             else
             {

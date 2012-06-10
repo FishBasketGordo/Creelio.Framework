@@ -79,12 +79,14 @@
     <Compile Include="FormatHelpers\Parameter.cs" />
     <Compile Include="FormatHelpers\ParameterList.cs" />
     <Compile Include="FormatHelpers\SqlFormatHelper.cs" />
+    <Compile Include="FormatHelpers\StoredProcedureWriteArgs.cs" />
     <Compile Include="Generators\CrudGenerator.cs" />
     <Compile Include="Interfaces\ITextTemplateHostProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Templates\CountProcedureTemplate.cs" />
     <Compile Include="Templates\DeleteProcedureTemplate.cs" />
     <Compile Include="Interfaces\ISmoTemplate.cs" />
+    <Compile Include="Templates\ProcedureTemplate.cs" />
     <Compile Include="Templates\Template.cs" />
   </ItemGroup>
   <ItemGroup>

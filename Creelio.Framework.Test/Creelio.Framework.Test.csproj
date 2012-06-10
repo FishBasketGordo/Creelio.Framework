@@ -122,13 +122,7 @@
     <Content Include="Templating\AccountHistory_COUNT.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
-    <Content Include="Templating\AccountHistory_DELETE.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
     <Content Include="Templating\AccountTypeHistory_COUNT.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
-    <Content Include="Templating\AccountTypeHistory_DELETE.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
     <Content Include="Templating\AccountType_COUNT.sql">
@@ -146,9 +140,6 @@
     <Content Include="Templating\AllocationDataHistory_COUNT.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
-    <Content Include="Templating\AllocationDataHistory_DELETE.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
     <Content Include="Templating\AllocationData_COUNT.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
@@ -158,13 +149,7 @@
     <Content Include="Templating\AllocationHistory_COUNT.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
-    <Content Include="Templating\AllocationHistory_DELETE.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
     <Content Include="Templating\AllocationTypeAccountHistory_COUNT.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
-    <Content Include="Templating\AllocationTypeAccountHistory_DELETE.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
     <Content Include="Templating\AllocationTypeAccount_COUNT.sql">
@@ -176,9 +161,6 @@
     <Content Include="Templating\AllocationTypeFieldHistory_COUNT.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
-    <Content Include="Templating\AllocationTypeFieldHistory_DELETE.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
     <Content Include="Templating\AllocationTypeField_COUNT.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
@@ -186,9 +168,6 @@
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
     <Content Include="Templating\AllocationTypeHistory_COUNT.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
-    <Content Include="Templating\AllocationTypeHistory_DELETE.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
     <Content Include="Templating\AllocationType_COUNT.sql">
@@ -206,9 +185,6 @@
     <Content Include="Templating\BillFrequencyHistory_COUNT.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
-    <Content Include="Templating\BillFrequencyHistory_DELETE.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
     <Content Include="Templating\BillFrequency_COUNT.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
@@ -216,9 +192,6 @@
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
     <Content Include="Templating\BillHistory_COUNT.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
-    <Content Include="Templating\BillHistory_DELETE.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
     <Content Include="Templating\Bill_COUNT.sql">
@@ -235,9 +208,6 @@
     <Content Include="Templating\DataTypeHistory_COUNT.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
-    <Content Include="Templating\DataTypeHistory_DELETE.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
     <Content Include="Templating\DataType_COUNT.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
@@ -245,9 +215,6 @@
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
     <Content Include="Templating\FundBudgetHistory_COUNT.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
-    <Content Include="Templating\FundBudgetHistory_DELETE.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
     <Content Include="Templating\FundBudget_COUNT.sql">
@@ -259,13 +226,7 @@
     <Content Include="Templating\FundHistory_COUNT.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
-    <Content Include="Templating\FundHistory_DELETE.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
     <Content Include="Templating\FundTypeHistory_COUNT.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
-    <Content Include="Templating\FundTypeHistory_DELETE.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
     <Content Include="Templating\FundType_COUNT.sql">
@@ -280,16 +241,7 @@
     <Content Include="Templating\Fund_DELETE.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
-    <Content Include="Templating\sysdiagrams_COUNT.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
-    <Content Include="Templating\sysdiagrams_DELETE.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
     <Content Include="Templating\TransactionHistory_COUNT.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
-    <Content Include="Templating\TransactionHistory_DELETE.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
     <Content Include="Templating\Transaction_COUNT.sql">
@@ -301,9 +253,6 @@
     <Content Include="Templating\UserAccountHistory_COUNT.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
-    <Content Include="Templating\UserAccountHistory_DELETE.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
     <Content Include="Templating\UserAccount_COUNT.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
@@ -313,9 +262,6 @@
     <Content Include="Templating\UserFundHistory_COUNT.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
-    <Content Include="Templating\UserFundHistory_DELETE.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
     <Content Include="Templating\UserFund_COUNT.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
@@ -323,9 +269,6 @@
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
     <Content Include="Templating\UserHistory_COUNT.sql">
-      <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
-    </Content>
-    <Content Include="Templating\UserHistory_DELETE.sql">
       <DependentUpon>CrudGeneratorTest.tt</DependentUpon>
     </Content>
     <Content Include="Templating\User_COUNT.sql">

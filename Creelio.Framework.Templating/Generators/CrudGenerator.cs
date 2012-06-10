@@ -1,25 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using Creelio.Framework.Core.Data;
-using Creelio.Framework.Core.Extensions.MaybeMonad;
-using Creelio.Framework.Templating.Interfaces;
-using Creelio.Framework.Templating.Templates;
-using Microsoft.SqlServer.Management.Smo;
-using Microsoft.VisualStudio.TextTemplating;
-using T4Toolbox;
-
-namespace Creelio.Framework.Templating.Generators
+﻿namespace Creelio.Framework.Templating.Generators
 {
+    using System;
+    using System.Collections.Generic;
+    using Creelio.Framework.Core.Data;
+    using Creelio.Framework.Core.Extensions.MaybeMonad;
+    using Creelio.Framework.Templating.Interfaces;
+    using Creelio.Framework.Templating.Templates;
+    using Microsoft.SqlServer.Management.Smo;
+    using Microsoft.VisualStudio.TextTemplating;
+    using T4Toolbox;
+
     public class CrudGenerator : Generator, ITextTemplateHostProvider
     {
-        #region Fields
-
         private string _databaseName = null;
+
         private List<ISmoTemplate> _templates = null;
 
-        #endregion
+        private List<string> _excludedTables = null;
 
-        #region Properties
+        public CrudGenerator(string connectionString, string databaseName)
+        {
+            DataProvider = new SmoDataProvider(connectionString);
+            DatabaseName = databaseName;
+        }
 
         public string ConnectionString
         {
@@ -27,9 +30,13 @@ namespace Creelio.Framework.Templating.Generators
             set { DataProvider.ConnectionString = value; }
         }
 
-        public string DatabaseName 
+        public string DatabaseName
         {
-            get { return _databaseName; }
+            get
+            {
+                return _databaseName;
+            }
+
             set
             {
                 value.ThrowIfNullOrWhiteSpace(() => new ArgumentNullException("value", "Database name cannot be null."));
@@ -37,6 +44,8 @@ namespace Creelio.Framework.Templating.Generators
                 Templates = null;
             }
         }
+
+        public ITextTemplatingEngineHost Host { get; set; }
 
         private SmoDataProvider DataProvider { get; set; }
 
@@ -55,45 +64,52 @@ namespace Creelio.Framework.Templating.Generators
 
                 return _templates;
             }
+
             set
             {
                 _templates = value;
             }
         }
 
-        #endregion
-
-        #region Constructors
-
-        public CrudGenerator(string connectionString, string databaseName)
+        private List<string> ExcludedTables
         {
-            DataProvider = new SmoDataProvider(connectionString);
-            DatabaseName = databaseName;
+            get
+            {
+                if (_excludedTables == null)
+                {
+                    // TODO: Retrieve from config.
+                    _excludedTables = new List<string>
+                    {
+                        "sysdiagrams"
+                    };
+                }
+
+                return _excludedTables;
+            }
         }
-
-        #endregion
-
-        #region Methods
 
         protected override void RunCore()
         {
             foreach (Table table in DataProvider.GetDatabase(DatabaseName).Tables)
             {
+                if (ExcludedTables.Contains(table.Name))
+                {
+                    continue;
+                }
+
                 foreach (var template in Templates)
                 {
+                    // TODO: Move these rules to config?
+                    if (table.Name.EndsWith("History") && template is DeleteProcedureTemplate)
+                    {
+                        continue;
+                    }
+
                     template.TableName = table.Name;
                     template.Host = Host;
                     template.RenderToFile();
-                }    
+                }
             }
         }
-
-        #endregion
-
-        #region ITextTemplateHostProvider
-
-        public ITextTemplatingEngineHost Host { get; set; }
-
-        #endregion
     }
 }

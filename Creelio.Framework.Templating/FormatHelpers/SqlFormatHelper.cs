@@ -1,47 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Creelio.Framework.Templating.Extensions.TextTransformationExtensions;
-using Microsoft.SqlServer.Management.Smo;
-using Microsoft.VisualStudio.TextTemplating;
-
-namespace Creelio.Framework.Templating.FormatHelpers
+﻿namespace Creelio.Framework.Templating.FormatHelpers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using Creelio.Framework.Core.Extensions.StringExtensions;
+    using Creelio.Framework.Templating.Extensions.TextTransformationExtensions;
+    using Microsoft.SqlServer.Management.Smo;
+    using Microsoft.VisualStudio.TextTemplating;
+
     public class SqlFormatHelper : FormatHelper
     {
-        #region Constructors
-
         public SqlFormatHelper(TextTransformation textTransformation)
             : base(textTransformation)
         {
         }
 
-        #endregion
-
-        #region Methods
-
-        #region Write Disclaimer
-
-        protected override IEnumerable<string> FormatDisclaimerLines(IEnumerable<string> disclaimerLines)
+        // TODO: Consolidate with SqlStringEscape in ValueConstraint
+        public static string FormatSqlString(string unformatted)
         {
-            int maxLineLength = disclaimerLines.Max(dl => dl.Length);
-
-            var flowerBox = new string('-', maxLineLength + 6);
-            var lineFormat = string.Format("-- {{0,-{0}}} --", maxLineLength);
-
-            var formattedLines = (from line in disclaimerLines
-                                  select string.Format(lineFormat, line)).ToList();
-
-            formattedLines.Insert(0, flowerBox);
-            formattedLines.Add(flowerBox);
-
-            return formattedLines;
+            return FormatSqlString(unformatted, false);
         }
 
-        #endregion
-
-        #region WriteUseStatement
+        // TODO: Consolidate with SqlStringEscape in ValueConstraint
+        public static string FormatSqlString(string unformatted, bool includeQuotes)
+        {
+            unformatted = (unformatted ?? string.Empty).Replace("'", "''");
+            return includeQuotes ? unformatted.ToSingleQuotedString() : unformatted;           
+        }
 
         public void WriteUseStatement(Database database)
         {
@@ -56,10 +42,6 @@ namespace Creelio.Framework.Templating.FormatHelpers
             _tt.WriteLine("GO");
         }
 
-        #endregion
-
-        #region WriteStoredProcedure
-
         public void BeginWriteStoredProcedure(string sprocName)
         {
             BeginWriteStoredProcedure(sprocName, null);
@@ -67,14 +49,22 @@ namespace Creelio.Framework.Templating.FormatHelpers
 
         public void BeginWriteStoredProcedure(string sprocName, IEnumerable<Column> parameters)
         {
-            BeginWriteStoredProcedure(sprocName, parameters, true);
+            BeginWriteStoredProcedure(sprocName, parameters, (StoredProcedureWriteArgs)0);
         }
 
-        public void BeginWriteStoredProcedure(string sprocName, IEnumerable<Column> parameters, bool defaultParamsToNull)
+        public void BeginWriteStoredProcedure(string sprocName, StoredProcedureWriteArgs args)
         {
+            BeginWriteStoredProcedure(sprocName, null, args);
+        }
+
+        public void BeginWriteStoredProcedure(string sprocName, IEnumerable<Column> parameters, StoredProcedureWriteArgs args)
+        {
+            bool defaultParamsToNull = (args & StoredProcedureWriteArgs.DefaultParamsToNull) == StoredProcedureWriteArgs.DefaultParamsToNull;
+            bool writeAlter = (args & StoredProcedureWriteArgs.WriteAlter) == StoredProcedureWriteArgs.WriteAlter;
+
             ProcessIdentifier(ref sprocName, "Stored procedure name");
 
-            _tt.WriteLine("CREATE PROCEDURE {0}", sprocName);
+            _tt.WriteLine("{0} PROCEDURE {1}", writeAlter ? "ALTER" : "CREATE", sprocName);
 
             if (parameters != null && parameters.Count() > 0)
             {
@@ -86,11 +76,9 @@ namespace Creelio.Framework.Templating.FormatHelpers
                         "@{0} {1} {2}",
                         p.Name,
                         p.DataType.Name.ToUpper(),
-                        defaultParamsToNull ? "= NULL" : string.Empty
-                    ), 
+                        defaultParamsToNull ? "= NULL" : string.Empty), 
                     l => string.Format(",{0}", l), 
-                    l => string.Format(" {0}", l)
-                );
+                    l => string.Format(" {0}", l));
                 _tt.PopIndent();
                 _tt.WriteLine(")");
             }
@@ -103,10 +91,6 @@ namespace Creelio.Framework.Templating.FormatHelpers
         {
             _tt.WriteLine("END");
         }
-
-        #endregion
-
-        #region WriteDeleteStatement
 
         public void WriteDeleteStatement(Table table)
         {
@@ -123,10 +107,6 @@ namespace Creelio.Framework.Templating.FormatHelpers
             _tt.WriteLine("DELETE FROM [{0}].[{1}]", table.Owner, table.Name);
             WriteWhereClause(parameters, overloaded);
         }
-
-        #endregion
-
-        #region WriteWhereClause
 
         public void WriteWhereClause(IEnumerable<Column> parameters)
         {
@@ -145,20 +125,6 @@ namespace Creelio.Framework.Templating.FormatHelpers
             }
         }
 
-        private string ToOverloadedWhereClauseParameter(Column column)
-        {
-            return string.Format("@{0} = NULL OR {1}", column.Name, ToWhereClauseParameter(column));
-        }
-
-        private string ToWhereClauseParameter(Column column)
-        {
-            return string.Format("[{0}] = @{0}", column.Name);
-        }
-
-        #endregion
-
-        #region WriteVarDeclaration
-
         public void WriteVarDeclaration(string varName, string varType)
         {
             WriteVarDeclaration(varName, varType, null);
@@ -176,10 +142,6 @@ namespace Creelio.Framework.Templating.FormatHelpers
                 _tt.WriteLine("SET {0} = {1}", varName, defaultValue);
             }
         }
-
-        #endregion
-
-        #region WriteInsertStatement
 
         public void WriteInsertStatement(string tableName, IEnumerable<Dictionary<string, string>> insertRows)
         {
@@ -235,6 +197,32 @@ namespace Creelio.Framework.Templating.FormatHelpers
             WriteInsertStatement(tableName, ownerName, new List<Dictionary<string, string>> { insertRow }, maxFieldWidths);
         }
 
+        protected override IEnumerable<string> FormatDisclaimerLines(IEnumerable<string> disclaimerLines)
+        {
+            int maxLineLength = disclaimerLines.Max(dl => dl.Length);
+
+            var flowerBox = new string('-', maxLineLength + 6);
+            var lineFormat = string.Format("-- {{0,-{0}}} --", maxLineLength);
+
+            var formattedLines = (from line in disclaimerLines
+                                  select string.Format(lineFormat, line)).ToList();
+
+            formattedLines.Insert(0, flowerBox);
+            formattedLines.Add(flowerBox);
+
+            return formattedLines;
+        }
+
+        private string ToOverloadedWhereClauseParameter(Column column)
+        {
+            return string.Format("@{0} = NULL OR {1}", column.Name, ToWhereClauseParameter(column));
+        }
+
+        private string ToWhereClauseParameter(Column column)
+        {
+            return string.Format("[{0}] = @{0}", column.Name);
+        }
+
         private void WriteInsertColumns(Dictionary<string, string> exampleRow, string fieldSeparator, Dictionary<string, int> maxFieldWidths, out Dictionary<string, string> fieldFormats)
         {
             fieldFormats = new Dictionary<string, string>();
@@ -267,8 +255,7 @@ namespace Creelio.Framework.Templating.FormatHelpers
                 row => FormatInsertRecord(row, fieldFormats, prefixFormat, fieldSeparator),
                 frow => FormatInsertRecord(frow, fieldFormats, prefixFormat, fieldSeparator),
                 lrow => FormatLastInsertRecord(lrow, fieldFormats, prefixFormat, fieldSeparator),
-                true
-            );
+                true);
         }
 
         private string FormatInsertRecord(Dictionary<string, string> row, Dictionary<string, string> fieldFormats, string prefixFormat, string fieldSeparator)
@@ -296,26 +283,6 @@ namespace Creelio.Framework.Templating.FormatHelpers
 
             return sb.ToString();
         }
-
-        #endregion
-
-        #region FormatSqlString
-
-        public string FormatSqlString(string unformatted)
-        {
-            if (string.IsNullOrEmpty(unformatted))
-            {
-                return "''";
-            }
-            else
-            {
-                return string.Format("'{0}'", unformatted.Replace("'", "''"));
-            }
-        }
-
-        #endregion
-
-        #region Helpers
 
         private void ProcessTableName(ref string tableName, string ownerName)
         {
@@ -365,10 +332,6 @@ namespace Creelio.Framework.Templating.FormatHelpers
                 var fieldWidth = maxFieldWidths[fieldName];
                 return string.Format("{{0,-{0}}}", fieldWidth);
             }
-        }
-
-        #endregion
-
-        #endregion
+        }        
     }
 }

@@ -1,41 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Reflection;
-using Creelio.Framework.Core.Data.Interfaces;
-using Creelio.Framework.Core.Data.Model;
-using Creelio.Framework.Core.Extensions.IEnumerableExtensions;
-using Creelio.Framework.Core.Extensions.MaybeMonad;
-using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
-
-namespace Creelio.Framework.Core.Data
+﻿namespace Creelio.Framework.Core.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.Common;
+    using System.Data.SqlClient;
+    using System.Linq;
+    using System.Reflection;
+    using Creelio.Framework.Core.Data.Interfaces;
+    using Creelio.Framework.Core.Data.Model;
+    using Creelio.Framework.Core.Extensions.IEnumerableExtensions;
+    using Creelio.Framework.Core.Extensions.MaybeMonad;
+    using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
+    using Microsoft.Practices.EnterpriseLibrary.Data;
+    using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+
     public class DataAccessor<T> : IDataAccessor<T> where T : class, new()
     {
-        #region Fields
-
         private string _insertSP = null;
+
         private string _selectSP = null;
+        
         private string _updateSP = null;
+        
         private string _deleteSP = null;
+        
         private string _countSP = null;
 
-        #endregion
+        public DataAccessor(string connectionName, string table = null, Func<string, string, string> formatSPName = null)
+        {
+            connectionName.ThrowIfNull(() => new ArgumentNullException("connectionName"));
 
-        #region Properties
+            Table = table ?? typeof(T).Name;
+            Database = EnterpriseLibraryContainer.Current.GetInstance<SqlDatabase>(connectionName);
+            DatabaseInfo = new InformationSchema(Database.ConnectionString);
+            FormatStoredProcedureName = formatSPName ?? ((tbl, action) => string.Format("dbo.{0}_{1}", tbl, action));
+        }
 
-        private Database DB { get; set; }
+        private Database Database { get; set; }
 
-        private InformationSchema DBInfo { get; set; }
+        private InformationSchema DatabaseInfo { get; set; }
 
         private string Table { get; set; }
 
-        private Func<string, string, string> FormatSPName { get; set; }
+        private Func<string, string, string> FormatStoredProcedureName { get; set; }
 
         private string InsertSP
         {
@@ -43,7 +51,7 @@ namespace Creelio.Framework.Core.Data
             {
                 if (_insertSP == null)
                 {
-                    _insertSP = FormatSPName(Table, "INSERT");
+                    _insertSP = FormatStoredProcedureName(Table, "INSERT");
                 }
 
                 return _insertSP;
@@ -56,7 +64,7 @@ namespace Creelio.Framework.Core.Data
             {
                 if (_selectSP == null)
                 {
-                    _selectSP = FormatSPName(Table, "SELECT");
+                    _selectSP = FormatStoredProcedureName(Table, "SELECT");
                 }
 
                 return _selectSP;
@@ -69,7 +77,7 @@ namespace Creelio.Framework.Core.Data
             {
                 if (_updateSP == null)
                 {
-                    _updateSP = FormatSPName(Table, "UPDATE");
+                    _updateSP = FormatStoredProcedureName(Table, "UPDATE");
                 }
 
                 return _updateSP;
@@ -82,7 +90,7 @@ namespace Creelio.Framework.Core.Data
             {
                 if (_deleteSP == null)
                 {
-                    _deleteSP = FormatSPName(Table, "DELETE");
+                    _deleteSP = FormatStoredProcedureName(Table, "DELETE");
                 }
 
                 return _deleteSP;
@@ -95,32 +103,12 @@ namespace Creelio.Framework.Core.Data
             {
                 if (_countSP == null)
                 {
-                    _countSP = FormatSPName(Table, "COUNT");
+                    _countSP = FormatStoredProcedureName(Table, "COUNT");
                 }
 
                 return _countSP;
             }
         }
-
-        #endregion
-
-        #region Constructors
-
-        public DataAccessor(string connectionName, string table = null, Func<string, string, string> formatSPName = null)
-        {
-            connectionName.ThrowIfNull(() => new ArgumentNullException("connectionName"));
-
-            Table = table ?? typeof(T).Name;
-            DB = EnterpriseLibraryContainer.Current.GetInstance<SqlDatabase>(connectionName);
-            DBInfo = new InformationSchema(DB.ConnectionString);
-            FormatSPName = formatSPName ?? ((tbl, action) => string.Format("dbo.{0}_{1}", tbl, action));
-        }
-
-        #endregion
-
-        #region Methods
-
-        #region IDataAccessor
 
         public List<T> Select()
         {
@@ -173,39 +161,37 @@ namespace Creelio.Framework.Core.Data
             ExecuteNonQuery(DeleteSP, values);
         }
 
-        #endregion
-
-        #region Helper Methods
-
         public void ClearPrimaryKey(T entity)
         {
-            var pkRows = GetPrimaryKeyDataRows();
+            var primaryKeyRows = GetPrimaryKeyDataRows();
 
-            foreach (DataRow dr in pkRows)
+            foreach (DataRow dr in primaryKeyRows)
             {
-                var pkColumn = dr["COLUMN_NAME"].ToString();
-                var prop = entity.GetType().GetProperty(pkColumn);
+                var primaryKeyColumn = dr["COLUMN_NAME"].ToString();
+                var prop = entity.GetType().GetProperty(primaryKeyColumn);
 
                 if (prop != null)
+                {
                     prop.SetValue(entity, GetDefault(prop.PropertyType), null);
+                }
             }
         }
 
         private List<T> ExecuteStoredProc(string procName, object[] values)
         {
-            return DB.ExecuteSprocAccessor<T>(SelectSP, values).ToList();
+            return Database.ExecuteSprocAccessor<T>(SelectSP, values).ToList();
         }
 
         private object ExecuteScalarStoredProc(string procName, object[] values)
         {
-            return DB.ExecuteScalar(procName, values);
+            return Database.ExecuteScalar(procName, values);
         }
 
         private int ExecuteNonQuery(string procName, object[] values)
         {
-            using (DbCommand command = DB.GetStoredProcCommand(procName, values))
+            using (DbCommand command = Database.GetStoredProcCommand(procName, values))
             {
-                return DB.ExecuteNonQuery(command);
+                return Database.ExecuteNonQuery(command);
             }
         }
 
@@ -253,21 +239,23 @@ namespace Creelio.Framework.Core.Data
         private SqlCommand GetCommand(string procName)
         {
             SqlCommand cmd = new SqlCommand(procName) { CommandType = CommandType.StoredProcedure };
-            DB.DiscoverParameters(cmd);
+            Database.DiscoverParameters(cmd);
             return cmd;
         }
 
         private bool HasPrimaryKey(T entity)
         {
-            var pkRows = GetPrimaryKeyDataRows();
+            var primaryKeyRows = GetPrimaryKeyDataRows();
 
-            foreach (DataRow dr in pkRows)
+            foreach (DataRow dr in primaryKeyRows)
             {
-                var pkColumn = dr["COLUMN_NAME"].ToString();
-                var prop = entity.GetType().GetProperty(pkColumn);
+                var primaryKeyColumn = dr["COLUMN_NAME"].ToString();
+                var prop = entity.GetType().GetProperty(primaryKeyColumn);
 
                 if (prop != null && prop.GetValue(entity, null) == GetDefault(prop.PropertyType))
+                {
                     return false;
+                }
             }
 
             return true;
@@ -275,7 +263,7 @@ namespace Creelio.Framework.Core.Data
 
         private IEnumerable<DataRow> GetPrimaryKeyDataRows()
         {
-            var dataRows = DBInfo.PrimaryKeyData.Rows.ToList<DataRow>().Where(r => r["TABLE_NAME"].ToString() == Table);
+            var dataRows = DatabaseInfo.PrimaryKeyData.Rows.ToList<DataRow>().Where(r => r["TABLE_NAME"].ToString() == Table);
             return dataRows;
         }
 
@@ -283,9 +271,5 @@ namespace Creelio.Framework.Core.Data
         {
             return type.IsValueType ? Activator.CreateInstance(type) : null;
         }
-
-        #endregion
-
-        #endregion
     }
 }

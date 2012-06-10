@@ -86,8 +86,11 @@
     <Compile Include="Templates\CountProcedureTemplate.cs" />
     <Compile Include="Templates\DeleteProcedureTemplate.cs" />
     <Compile Include="Interfaces\ISmoTemplate.cs" />
+    <Compile Include="Templates\InsertProcedureTemplate.cs" />
     <Compile Include="Templates\ProcedureTemplate.cs" />
+    <Compile Include="Templates\SelectProcedureTemplate.cs" />
     <Compile Include="Templates\Template.cs" />
+    <Compile Include="Templates\UpdateProcedureTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Creelio.Framework\Creelio.Framework.Core.csproj">

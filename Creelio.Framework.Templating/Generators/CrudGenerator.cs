@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Creelio.Framework.Core.Data;
+    using Creelio.Framework.Core.Extensions.FuncExtensions;
     using Creelio.Framework.Core.Extensions.MaybeMonad;
     using Creelio.Framework.Templating.Interfaces;
     using Creelio.Framework.Templating.Templates;
@@ -16,12 +17,23 @@
 
         private List<ISmoTemplate> _templates = null;
 
-        private List<string> _excludedTables = null;
+        static CrudGenerator()
+        {
+            TableExemptions = tbl => tbl.Name == "sysdiagrams";
+
+            TemplateExemptions = 
+                new Func<Table, ISmoTemplate, bool>(
+                    (tbl, tmpl) => tbl.Name.EndsWith("History") && tmpl is DeleteProcedureTemplate)
+                .OrElse(
+                    (tbl, tmpl) => tbl.Name.EndsWith("History") && tmpl is InsertProcedureTemplate)
+                .OrElse(
+                    (tbl, tmpl) => tbl.Name.EndsWith("History") && tmpl is UpdateProcedureTemplate);
+        }
 
         public CrudGenerator(string connectionString, string databaseName)
         {
             DataProvider = new SmoDataProvider(connectionString);
-            DatabaseName = databaseName;
+            DatabaseName = databaseName;            
         }
 
         public string ConnectionString
@@ -47,6 +59,10 @@
 
         public ITextTemplatingEngineHost Host { get; set; }
 
+        private static Func<Table, bool> TableExemptions { get; set; }
+
+        private static Func<Table, ISmoTemplate, bool> TemplateExemptions { get; set; }
+        
         private SmoDataProvider DataProvider { get; set; }
 
         private List<ISmoTemplate> Templates
@@ -57,6 +73,9 @@
                 {
                     _templates = new List<ISmoTemplate>
                     {
+                        new SelectProcedureTemplate(DataProvider, DatabaseName),
+                        new InsertProcedureTemplate(DataProvider, DatabaseName),
+                        new UpdateProcedureTemplate(DataProvider, DatabaseName),
                         new DeleteProcedureTemplate(DataProvider, DatabaseName),
                         new CountProcedureTemplate(DataProvider, DatabaseName),
                     };
@@ -71,37 +90,21 @@
             }
         }
 
-        private List<string> ExcludedTables
-        {
-            get
-            {
-                if (_excludedTables == null)
-                {
-                    // TODO: Retrieve from config.
-                    _excludedTables = new List<string>
-                    {
-                        "sysdiagrams"
-                    };
-                }
-
-                return _excludedTables;
-            }
-        }
-
         protected override void RunCore()
         {
             foreach (Table table in DataProvider.GetDatabase(DatabaseName).Tables)
             {
-                if (ExcludedTables.Contains(table.Name))
+                if (IsTableExempted(table))
                 {
+                    System.Diagnostics.Debug.WriteLine(string.Format("{0} exempted", table.Name));
                     continue;
                 }
 
                 foreach (var template in Templates)
                 {
-                    // TODO: Move these rules to config?
-                    if (table.Name.EndsWith("History") && template is DeleteProcedureTemplate)
+                    if (IsTemplateExempted(table, template))
                     {
+                        System.Diagnostics.Debug.WriteLine(string.Format("{0} exempted for template {1}", table.Name, template.GetType().Name));
                         continue;
                     }
 
@@ -110,6 +113,26 @@
                     template.RenderToFile();
                 }
             }
+        }
+
+        private bool IsTableExempted(Table table)
+        {
+            if (TableExemptions != null)
+            {
+                return TableExemptions(table);
+            }
+
+            return false;
+        }
+
+        private bool IsTemplateExempted(Table table, ISmoTemplate template)
+        {
+            if (TemplateExemptions != null)
+            {
+                return TemplateExemptions(table, template);
+            }
+
+            return false;
         }
     }
 }

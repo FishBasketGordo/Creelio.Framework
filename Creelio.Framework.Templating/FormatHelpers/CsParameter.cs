@@ -1,41 +1,35 @@
-﻿using System;
-
-namespace Creelio.Framework.Templating.FormatHelpers
+﻿namespace Creelio.Framework.Templating.FormatHelpers
 {
-    public class Parameter
-    {
-        #region Constructors
+    using System;
 
-        public Parameter(Type type, string name)
+    public class CsParameter
+    {
+        public CsParameter(Type type, string name)
             : this(type.FullName, name, null)
         {
         }
 
-        public Parameter(string typeName, string name)
+        public CsParameter(string typeName, string name)
             : this(typeName, name, null)
         {
         }
 
-        public Parameter(Type type, string name, string modifier)
+        public CsParameter(Type type, string name, string modifier)
             : this(type.FullName, name, modifier)
         {
         }
 
-        public Parameter(string typeName, string name, string modifier)
+        public CsParameter(string typeName, string name, string modifier)
         {
             TypeName = typeName;
             Name = name;
             Modifier = modifier;
         }
 
-        #endregion
-
-        #region Properties
-
         public string TypeName { get; set; }
+        
         public string Name { get; set; }
+        
         public string Modifier { get; set; }
-
-        #endregion
     }
 }

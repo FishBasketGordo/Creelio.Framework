@@ -1,8 +1,10 @@
 ﻿namespace Creelio.Framework.Templating.Templates
 {
+    using System.Collections.Generic;
     using Creelio.Framework.Core.Data;
     using Creelio.Framework.Templating.Extensions.TextTransformationExtensions;
     using Creelio.Framework.Templating.FormatHelpers;
+    using Microsoft.SqlServer.Management.Smo;
 
     public abstract class ProcedureTemplate : Template
     {
@@ -26,6 +28,11 @@
             set { _schemaName = value; }
         }
 
+        protected virtual List<Column> Parameters 
+        { 
+            get { return null; } 
+        }
+        
         protected string QualifiedProcedureName
         {
             get
@@ -65,6 +72,7 @@
 
             FormatHelper.BeginWriteStoredProcedure(
                 QualifiedProcedureName,
+                Parameters,
                 StoredProcedureWriteArgs.WriteAlter | StoredProcedureWriteArgs.DefaultParamsToNull);
 
             this.PushIndent();

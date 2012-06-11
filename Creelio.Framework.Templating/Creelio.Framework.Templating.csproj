@@ -72,12 +72,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\TextTransformationExtensions.cs" />
-    <Compile Include="FormatHelpers\Argument.cs" />
-    <Compile Include="FormatHelpers\ArgumentList.cs" />
+    <Compile Include="FormatHelpers\CsArgument.cs" />
+    <Compile Include="FormatHelpers\CsArgumentList.cs" />
     <Compile Include="FormatHelpers\CsFormatHelper.cs" />
     <Compile Include="FormatHelpers\FormatHelper.cs" />
-    <Compile Include="FormatHelpers\Parameter.cs" />
-    <Compile Include="FormatHelpers\ParameterList.cs" />
+    <Compile Include="FormatHelpers\CsParameter.cs" />
+    <Compile Include="FormatHelpers\CsParameterList.cs" />
     <Compile Include="FormatHelpers\SqlFormatHelper.cs" />
     <Compile Include="FormatHelpers\StoredProcedureWriteArgs.cs" />
     <Compile Include="Generators\CrudGenerator.cs" />

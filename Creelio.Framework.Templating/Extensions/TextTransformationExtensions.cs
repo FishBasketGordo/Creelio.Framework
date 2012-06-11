@@ -98,14 +98,14 @@
             }
             else
             {
-                textTransformation.WriteLine(lastLineFormatter(lines.Last()));
+                textTransformation.WriteLine(firstLineFormatter(lines.First()));
 
                 foreach (var line in lines.Skip(1).Take(lineCount - 2)) 
                 {
                     textTransformation.WriteLine(lineFormatter(line));
                 }
 
-                textTransformation.WriteLine(firstLineFormatter(lines.First()));
+                textTransformation.WriteLine(lastLineFormatter(lines.Last()));
             }
         }
 

@@ -75,7 +75,7 @@
                     select string.Format(
                         "@{0} {1} {2}",
                         p.Name,
-                        p.DataType.Name.ToUpper(),
+                        GetFormattedDataType(p),
                         defaultParamsToNull ? "= NULL" : string.Empty), 
                     l => string.Format(",{0}", l), 
                     l => string.Format(" {0}", l));
@@ -332,6 +332,25 @@
                 var fieldWidth = maxFieldWidths[fieldName];
                 return string.Format("{{0,-{0}}}", fieldWidth);
             }
-        }        
+        }
+
+        private string GetFormattedDataType(Column column)
+        {
+            var sb = new StringBuilder(column.DataType.Name.ToUpper());
+
+            if (column.DataType.Name == "varchar" || column.DataType.Name == "nvarchar")
+            {
+                if (column.DataType.MaximumLength == -1)
+                {
+                    sb.Append("(MAX)");
+                }
+                else if (column.DataType.MaximumLength > 1)
+                {
+                    sb.AppendFormat("({0})", column.DataType.MaximumLength);
+                }
+            }
+
+            return sb.ToString();
+        }
     }
 }

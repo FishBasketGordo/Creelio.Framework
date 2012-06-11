@@ -81,6 +81,7 @@
     <Compile Include="Core\GuardTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Data\SmoDataProviderTest_Checkbook.cs" />
+    <Compile Include="Templating\Extensions\TextTransformationExtensionsTest.cs" />
     <Compile Include="Templating\Sql\ColumnConstraintTest.cs" />
     <Compile Include="Templating\Sql\ColumnTest.cs" />
     <Compile Include="Templating\Sql\ConstraintGroupTest.cs" />

@@ -348,12 +348,12 @@ namespace Creelio.Framework.Templating.FormatHelpers
             BeginWriteConstructor(className, accessModifier, null);
         }
 
-        public void BeginWriteConstructor(string className, string accessModifier, ParameterList parameters)
+        public void BeginWriteConstructor(string className, string accessModifier, CsParameterList parameters)
         {
             BeginWriteConstructor(className, accessModifier, parameters, null);
         }
 
-        public void BeginWriteConstructor(string className, string accessModifier, ParameterList parameters, ArgumentList baseArguments)
+        public void BeginWriteConstructor(string className, string accessModifier, CsParameterList parameters, CsArgumentList baseArguments)
         {
             ProcessClassName(ref className);
             ProcessConstructorAccessModifier(ref accessModifier);
@@ -663,7 +663,7 @@ namespace Creelio.Framework.Templating.FormatHelpers
             }
         }
 
-        private string GetFormattedParameter(Parameter parameter)
+        private string GetFormattedParameter(CsParameter parameter)
         {
             return string.Format(
                 "{0} {1} {2}",
@@ -673,7 +673,7 @@ namespace Creelio.Framework.Templating.FormatHelpers
             ).Trim();
         }
 
-        private string GetFormattedArgument(Argument argument)
+        private string GetFormattedArgument(CsArgument argument)
         {
             return string.Format(
                 "{0} {1}",

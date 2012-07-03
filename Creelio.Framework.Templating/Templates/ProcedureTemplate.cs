@@ -28,7 +28,7 @@
             set { _schemaName = value; }
         }
 
-        protected virtual List<Column> Parameters 
+        protected virtual IEnumerable<Column> Parameters 
         { 
             get { return null; } 
         }
@@ -47,27 +47,7 @@
             FormatHelper.WriteUseStatement(Database);
             this.WriteLine();
 
-            this.WriteLine("IF NOT EXISTS");
-            this.WriteLine("(");
-            this.PushIndent();
-            this.WriteLine("SELECT TOP 1 1 FROM INFORMATION_SCHEMA.ROUTINES r");
-            this.WriteLine(" WHERE r.ROUTINE_TYPE   = 'PROCEDURE'");
-            this.WriteLine("   AND r.ROUTINE_SCHEMA = '{0}'", SchemaName);
-            this.WriteLine("   AND r.ROUTIME_NAME   = '{0}'", ProcedureName);
-            this.PopIndent();
-            this.WriteLine(")");
-            this.WriteLine("BEGIN");
-            this.PushIndent();
-            this.WriteLine("EXEC sp_executesql N'");
-            FormatHelper.BeginWriteStoredProcedure(QualifiedProcedureName);
-            this.PushIndent();
-            this.WriteLine("SELECT 1");
-            this.PopIndent();
-            FormatHelper.EndWriteStoredProcedure();
-            this.WriteLine("'");
-            this.PopIndent();
-            this.WriteLine("END");
-            this.WriteLine("GO");
+            WriteCreateDummyProcedure();
             this.WriteLine();
 
             FormatHelper.BeginWriteStoredProcedure(
@@ -83,6 +63,37 @@
             this.WriteLine("GO");
 
             return this.GenerationEnvironment.ToString();
+        }
+
+        protected virtual void WriteCreateDummyProcedure()
+        {
+            this.WriteLine("IF NOT EXISTS");
+            this.WriteLine("(");
+            
+            this.PushIndent();
+            this.WriteLine("SELECT TOP 1 1 FROM INFORMATION_SCHEMA.ROUTINES r");
+            this.WriteLine(" WHERE r.ROUTINE_TYPE   = 'PROCEDURE'");
+            this.WriteLine("   AND r.ROUTINE_SCHEMA = '{0}'", SchemaName);
+            this.WriteLine("   AND r.ROUTIME_NAME   = '{0}'", ProcedureName);
+            this.PopIndent();
+            
+            this.WriteLine(")");
+            this.WriteLine("BEGIN");
+            
+            this.PushIndent();
+            this.WriteLine("EXEC sp_executesql N'");
+            FormatHelper.BeginWriteStoredProcedure(QualifiedProcedureName);
+            
+            this.PushIndent();
+            this.WriteLine("SELECT 1");
+            this.PopIndent();
+            
+            FormatHelper.EndWriteStoredProcedure();
+            this.WriteLine("'");
+            this.PopIndent();
+            
+            this.WriteLine("END");
+            this.Write("GO");
         }
 
         protected abstract void WriteProcedureBody();

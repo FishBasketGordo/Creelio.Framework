@@ -53,20 +53,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Column.cs" />
-    <Compile Include="ColumnConstraint.cs" />
-    <Compile Include="Constraint.cs" />
-    <Compile Include="ConstraintConjunction.cs" />
-    <Compile Include="ConstraintGroup.cs" />
-    <Compile Include="EqualityConstraint.cs" />
-    <Compile Include="InequalityConstraint.cs" />
-    <Compile Include="InequalityType.cs" />
-    <Compile Include="IColumnBasedConstraint.cs" />
-    <Compile Include="ListConstraint.cs" />
-    <Compile Include="ListType.cs" />
-    <Compile Include="NonEqualityConstraint.cs" />
+    <Compile Include="Constraints\ColumnConstraint.cs" />
+    <Compile Include="Constraints\Constraint.cs" />
+    <Compile Include="Enums\ConstraintConjunction.cs" />
+    <Compile Include="Constraints\ConstraintGroup.cs" />
+    <Compile Include="Constraints\EqualityConstraint.cs" />
+    <Compile Include="Constraints\InequalityConstraint.cs" />
+    <Compile Include="Enums\InequalityType.cs" />
+    <Compile Include="InsertStatement.cs" />
+    <Compile Include="Interfaces\IColumnBasedConstraint.cs" />
+    <Compile Include="Constraints\ListConstraint.cs" />
+    <Compile Include="Enums\ListType.cs" />
+    <Compile Include="Constraints\NonEqualityConstraint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SubSelectConstraint.cs" />
-    <Compile Include="ValueConstraint.cs" />
+    <Compile Include="Constraints\SubSelectConstraint.cs" />
+    <Compile Include="Constraints\ValueConstraint.cs" />
     <Compile Include="WhereClause.cs" />
   </ItemGroup>
   <ItemGroup>

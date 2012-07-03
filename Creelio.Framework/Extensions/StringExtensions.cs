@@ -12,6 +12,16 @@
                     .Split(separator, options);
         }
 
+        public static bool IsNullOrEmpty(this string s)
+        {
+            return string.IsNullOrEmpty(s);
+        }
+
+        public static bool IsNullOrWhiteSpace(this string s)
+        {
+            return string.IsNullOrWhiteSpace(s);
+        }
+
         public static string ToCamelCase(this string s)
         {
             if (string.IsNullOrEmpty(s))

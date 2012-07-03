@@ -17,11 +17,11 @@
             get { return string.Format("{0}_SELECT", TableName); }
         }
 
-        protected override List<Column> Parameters
+        protected override IEnumerable<Column> Parameters
         {
             get
             {
-                return new List<Column>(Table.Columns.ToList<Column>());
+                return Table.Columns.ToList<Column>();
             }
         }
 

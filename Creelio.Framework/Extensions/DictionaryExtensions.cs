@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Creelio.Framework.Core.Extensions.DictionaryExtensions
+﻿namespace Creelio.Framework.Core.Extensions.DictionaryExtensions
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public static class DictionaryExtensions
     {
         public static void AddOrSet<K, V>(this Dictionary<K, V> dictionary, K key, V value)
@@ -92,6 +93,11 @@ namespace Creelio.Framework.Core.Extensions.DictionaryExtensions
             {
                 return dictionaryValue.Equals(value);
             }
+        }
+
+        public static bool IsNullOrEmpty<K, V>(this Dictionary<K, V> dictionary)
+        {
+            return dictionary == null || !dictionary.Any();
         }
 
         private static void Validate<K, V>(Dictionary<K, V> dictionary)

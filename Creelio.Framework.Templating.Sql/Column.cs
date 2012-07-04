@@ -5,9 +5,8 @@
     using System.Data;
     using System.Linq;
     using Creelio.Framework.Core.Data;
-    using Creelio.Framework.Core.Extensions.IComparableExtensions;
+    using Creelio.Framework.Core.Extensions;
     using Creelio.Framework.Core.Extensions.MaybeMonad;
-    using Creelio.Framework.Core.Extensions.StringExtensions;
 
     public sealed class Column : IComparable<Column>
     {

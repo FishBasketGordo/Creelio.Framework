@@ -1,4 +1,4 @@
-﻿namespace Creelio.Framework.Core.Extensions.FuncExtensions
+﻿namespace Creelio.Framework.Core.Extensions
 {
     using System;
     using System.Linq;

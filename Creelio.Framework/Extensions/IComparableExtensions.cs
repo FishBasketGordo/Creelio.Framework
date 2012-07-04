@@ -1,11 +1,10 @@
-﻿namespace Creelio.Framework.Core.Extensions.IComparableExtensions
+﻿namespace Creelio.Framework.Core.Extensions
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using Creelio.Framework.Core.Extensions.MaybeMonad;
-    using Creelio.Framework.Core.Extensions.StringExtensions;
 
     public static class IComparableExtensions
     {

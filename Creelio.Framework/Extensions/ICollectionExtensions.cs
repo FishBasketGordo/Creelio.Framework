@@ -1,4 +1,4 @@
-﻿namespace Creelio.Framework.Core.Extensions.ICollectionExtensions
+﻿namespace Creelio.Framework.Core.Extensions
 {
     using System;
     using System.Collections.Generic;

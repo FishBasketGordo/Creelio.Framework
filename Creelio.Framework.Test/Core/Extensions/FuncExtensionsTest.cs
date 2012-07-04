@@ -1,11 +1,8 @@
 ﻿namespace Creelio.Framework.Test.Core.Extensions
 {
     using System;
-    using System.Text;
-    using System.Collections.Generic;
-    using System.Linq;
+    using Creelio.Framework.Core.Extensions;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Creelio.Framework.Core.Extensions.FuncExtensions;
 
     [TestClass]
     public class FuncExtensionsTest

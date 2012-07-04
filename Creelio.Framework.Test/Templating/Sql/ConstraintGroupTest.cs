@@ -1,11 +1,11 @@
 ﻿namespace Creelio.Framework.Test.Templating.Sql
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using Creelio.Framework.Core.Extensions;
     using Creelio.Framework.Templating.Sql;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using System;
-    using Creelio.Framework.Core.Extensions.IntExtensions;
-    using System.Collections.Generic;
 
     [TestClass]
     public class ConstraintGroupTest : ConstraintTest

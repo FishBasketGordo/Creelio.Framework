@@ -1,4 +1,4 @@
-﻿namespace Creelio.Framework.Core.Extensions.ByteArrayExtensions
+﻿namespace Creelio.Framework.Core.Extensions
 {
     using System.Text;
 

@@ -1,12 +1,12 @@
-﻿namespace Creelio.Framework.Core.Extensions.DictionaryExtensions
+﻿namespace Creelio.Framework.Core.Extensions
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    public static class DictionaryExtensions
+    public static class IDictionaryExtensions
     {
-        public static void AddOrSet<K, V>(this Dictionary<K, V> dictionary, K key, V value)
+        public static IDictionary<K, V> AddOrSet<K, V>(this IDictionary<K, V> dictionary, K key, V value)
         {
             Validate(dictionary);
 
@@ -18,20 +18,22 @@
             {
                 dictionary.Add(key, value);
             }
+
+            return dictionary;
         }
 
-        public static V GetOrAddDefault<K, V>(this Dictionary<K, V> dictionary, K key)
+        public static V GetOrAddDefault<K, V>(this IDictionary<K, V> dictionary, K key)
             where V : new()
         {
             return dictionary.GetOrAddDefault(key, () => new V());
         }
 
-        public static V GetOrAddDefault<K, V>(this Dictionary<K, V> dictionary, K key, V defaultValue)
+        public static V GetOrAddDefault<K, V>(this IDictionary<K, V> dictionary, K key, V defaultValue)
         {
             return dictionary.GetOrAddDefault(key, () => defaultValue);
         }
 
-        public static V GetOrAddDefault<K, V>(this Dictionary<K, V> dictionary, K key, Func<V> getDefault)
+        public static V GetOrAddDefault<K, V>(this IDictionary<K, V> dictionary, K key, Func<V> getDefault)
         {
             Validate(dictionary, getDefault);
 
@@ -43,18 +45,18 @@
             return dictionary[key];
         }
 
-        public static V GetOrReturnDefault<K, V>(this Dictionary<K, V> dictionary, K key)
+        public static V GetOrReturnDefault<K, V>(this IDictionary<K, V> dictionary, K key)
             where V : new()
         {
             return dictionary.GetOrReturnDefault(key, () => new V());
         }
 
-        public static V GetOrReturnDefault<K, V>(this Dictionary<K, V> dictionary, K key, V defaultValue)
+        public static V GetOrReturnDefault<K, V>(this IDictionary<K, V> dictionary, K key, V defaultValue)
         {
             return dictionary.GetOrReturnDefault(key, () => defaultValue);
         }
 
-        public static V GetOrReturnDefault<K, V>(this Dictionary<K, V> dictionary, K key, Func<V> getDefault)
+        public static V GetOrReturnDefault<K, V>(this IDictionary<K, V> dictionary, K key, Func<V> getDefault)
         {
             Validate(dictionary, getDefault);
 
@@ -68,13 +70,13 @@
             }
         }
 
-        public static V GetOrReturnNull<K, V>(this Dictionary<K, V> dictionary, K key)
+        public static V GetOrReturnNull<K, V>(this IDictionary<K, V> dictionary, K key)
             where V : class
         {
             return GetOrReturnDefault(dictionary, key, () => null);
         }
 
-        public static bool ContainsKeyValue<K, V>(this Dictionary<K, V> dictionary, K key, V value)
+        public static bool ContainsKeyValue<K, V>(this IDictionary<K, V> dictionary, K key, V value)
         {
             Validate(dictionary);
 
@@ -95,12 +97,12 @@
             }
         }
 
-        public static bool IsNullOrEmpty<K, V>(this Dictionary<K, V> dictionary)
+        public static bool IsNullOrEmpty<K, V>(this IDictionary<K, V> dictionary)
         {
             return dictionary == null || !dictionary.Any();
         }
 
-        private static void Validate<K, V>(Dictionary<K, V> dictionary)
+        private static void Validate<K, V>(IDictionary<K, V> dictionary)
         {
             if (dictionary == null)
             {
@@ -108,7 +110,7 @@
             }
         }
 
-        private static void Validate<K, V>(Dictionary<K, V> dictionary, Func<V> getDefault)
+        private static void Validate<K, V>(IDictionary<K, V> dictionary, Func<V> getDefault)
         {
             Validate(dictionary);
 

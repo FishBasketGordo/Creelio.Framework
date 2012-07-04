@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reflection;
-using System.Collections;
-using Creelio.Framework.Core.Extensions.DictionaryExtensions;
-
-namespace Creelio.Framework.Core
+﻿namespace Creelio.Framework.Core
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Reflection;
+
     /// <summary>
     /// Base class for representing hierarchical, enumerated data.
     /// </summary>
@@ -20,13 +17,7 @@ namespace Creelio.Framework.Core
     /// </typeparam>
     public abstract class HierarchicalEnum<T, TMember> : IEnumerable<KeyValuePair<string, TMember>>
     {
-        #region Fields
-
         private Dictionary<string, TMember> _members = null;
-
-        #endregion
-
-        #region Constructors
 
         protected HierarchicalEnum(T value)
         {
@@ -36,29 +27,6 @@ namespace Creelio.Framework.Core
         protected HierarchicalEnum(Func<HierarchicalEnum<T, TMember>, T> getValue)
         {
             Value = getValue(this);
-        }
-
-        #endregion
-
-        #region Properties
-
-        public TMember this[string key]
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(key))
-                {
-                    throw new ArgumentNullException("key");
-                }
-                else if (!Members.ContainsKey(key))
-                {
-                    throw new KeyNotFoundException(string.Format("No \"{0}\" key found", key));
-                }
-                else
-                {
-                    return Members[key];
-                }
-            }
         }
 
         public Dictionary<string, TMember>.KeyCollection Keys
@@ -111,9 +79,24 @@ namespace Creelio.Framework.Core
             }
         }
 
-        #endregion
-
-        #region Methods
+        public TMember this[string key]
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(key))
+                {
+                    throw new ArgumentNullException("key");
+                }
+                else if (!Members.ContainsKey(key))
+                {
+                    throw new KeyNotFoundException(string.Format("No \"{0}\" key found", key));
+                }
+                else
+                {
+                    return Members[key];
+                }
+            }
+        }
 
         public static implicit operator T(HierarchicalEnum<T, TMember> expandedEnum)
         {
@@ -142,24 +125,14 @@ namespace Creelio.Framework.Core
             return Value.ToString();
         }
 
-        #endregion
-
-        #region IEnumerable<KeyValuePair<string,TMember>> Members
-
         public IEnumerator<KeyValuePair<string, TMember>> GetEnumerator()
         {
             return Members.GetEnumerator();
         }
 
-        #endregion
-
-        #region IEnumerable Members
-
         IEnumerator IEnumerable.GetEnumerator()
         {
             return Members.GetEnumerator();
         }
-
-        #endregion
     }
 }

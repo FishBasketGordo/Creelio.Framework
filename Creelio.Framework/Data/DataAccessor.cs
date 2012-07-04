@@ -9,7 +9,7 @@
     using System.Reflection;
     using Creelio.Framework.Core.Data.Interfaces;
     using Creelio.Framework.Core.Data.Model;
-    using Creelio.Framework.Core.Extensions.IEnumerableExtensions;
+    using Creelio.Framework.Core.Extensions;
     using Creelio.Framework.Core.Extensions.MaybeMonad;
     using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
     using Microsoft.Practices.EnterpriseLibrary.Data;

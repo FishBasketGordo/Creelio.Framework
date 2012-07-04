@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Creelio.Framework.Core.Extensions.MaybeMonad;
-
-namespace Creelio.Framework.Core.Extensions.PageExtensions
+﻿namespace Creelio.Framework.Core.Extensions.Web
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Text;
+    using System.Text.RegularExpressions;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+    using Creelio.Framework.Core.Extensions.MaybeMonad;
+
     public static class PageExtensions
     {
         public static void RegisterScript(this Page page, string path)

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Data.SqlClient;
     using System.Linq;
-    using Creelio.Framework.Core.Extensions.IEnumerableExtensions;
+    using Creelio.Framework.Core.Extensions;
     using Creelio.Framework.Core.Extensions.MaybeMonad;
     using Microsoft.SqlServer.Management.Common;
     using Microsoft.SqlServer.Management.Smo;

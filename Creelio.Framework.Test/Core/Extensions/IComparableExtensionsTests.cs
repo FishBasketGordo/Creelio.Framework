@@ -1,7 +1,7 @@
 ﻿namespace Creelio.Framework.Test.Core.Extensions
 {
     using System;
-    using Creelio.Framework.Core.Extensions.IComparableExtensions;
+    using Creelio.Framework.Core.Extensions;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

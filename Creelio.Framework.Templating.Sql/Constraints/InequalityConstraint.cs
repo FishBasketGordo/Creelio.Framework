@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using Creelio.Framework.Core.Extensions.DictionaryExtensions;
+    using Creelio.Framework.Core.Extensions;
     using Creelio.Framework.Core.Extensions.MaybeMonad;
 
     public class InequalityConstraint<T> : ValueConstraint<T>

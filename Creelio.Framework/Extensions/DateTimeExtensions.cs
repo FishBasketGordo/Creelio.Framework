@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Creelio.Framework.Core.Extensions.DateTimeExtensions
+namespace Creelio.Framework.Core.Extensions
 {
     public static class DateTimeExtensions
     {

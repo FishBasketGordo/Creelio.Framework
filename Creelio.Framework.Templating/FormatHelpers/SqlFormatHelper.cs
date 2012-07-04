@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using Creelio.Framework.Core.Extensions.StringExtensions;
+    using Creelio.Framework.Core.Extensions;
     using Creelio.Framework.Templating.Extensions.TextTransformationExtensions;
     using Microsoft.SqlServer.Management.Smo;
     using Microsoft.VisualStudio.TextTemplating;

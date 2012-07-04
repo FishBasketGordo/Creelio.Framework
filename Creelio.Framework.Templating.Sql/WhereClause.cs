@@ -4,8 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Text;
-    using Creelio.Framework.Core.Extensions.DictionaryExtensions;
-    using Creelio.Framework.Core.Extensions.IEnumerableExtensions;
+    using Creelio.Framework.Core.Extensions;
     using Creelio.Framework.Core.Extensions.MaybeMonad;
 
     public class WhereClause : ICloneable

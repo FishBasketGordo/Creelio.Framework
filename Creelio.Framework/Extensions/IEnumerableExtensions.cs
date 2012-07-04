@@ -1,4 +1,4 @@
-﻿namespace Creelio.Framework.Core.Extensions.IEnumerableExtensions
+﻿namespace Creelio.Framework.Core.Extensions
 {
     using System;
     using System.Collections;
@@ -6,7 +6,6 @@
     using System.Linq;
     using System.Text;
     using Creelio.Framework.Core.Extensions.MaybeMonad;
-    using Creelio.Framework.Core.Extensions.StringExtensions;
 
     public static class IEnumerableExtensions
     {
@@ -43,49 +42,49 @@
             return collection.Skip(collectionCount - count);
         }
 
-        public static string ToString<T>(this IEnumerable<T> list, string separator)
+        public static string ToString<T>(this IEnumerable<T> collection, string separator)
         {
-            return ToString<T>(list, separator, delegate(T item) { return item.ToString(); });
+            return ToString<T>(collection, separator, delegate(T item) { return item.ToString(); });
         }
 
-        public static string ToString<T>(this IEnumerable<T> list, string separator, Func<T, string> toString)
+        public static string ToString<T>(this IEnumerable<T> collection, string separator, Func<T, string> toString)
         {
-            list.ThrowIfNull(_ => new NullReferenceException("The collection is null."));
+            collection.ThrowIfNull(_ => new NullReferenceException("The collection is null."));
 
             separator = separator ?? string.Empty;
 
-            return list.Select(item => toString(item))
+            return collection.Select(item => toString(item))
                        .Aggregate((s1, s2) => string.Format("{0}{1}{2}", s1, separator, s2));
         }
 
-        public static string ToCsv<T>(this IEnumerable<T> list)
+        public static string ToCsv<T>(this IEnumerable<T> collection)
         {
-            return ToString(list, ",");
+            return ToString(collection, ",");
         }
 
-        public static string ToCsv<T>(this IEnumerable<T> list, Func<T, string> toString)
+        public static string ToCsv<T>(this IEnumerable<T> collection, Func<T, string> toString)
         {
-            return ToString(list, ",", toString);
+            return ToString(collection, ",", toString);
         }
 
-        public static string ToCsv<T>(this IEnumerable<T> list, bool addSpaceAfterComma)
+        public static string ToCsv<T>(this IEnumerable<T> collection, bool addSpaceAfterComma)
         {
-            return ToString(list, addSpaceAfterComma ? ", " : ",");
+            return ToString(collection, addSpaceAfterComma ? ", " : ",");
         }
 
-        public static string ToCsv<T>(this IEnumerable<T> list, bool addSpaceAfterComma, Func<T, string> toString)
+        public static string ToCsv<T>(this IEnumerable<T> collection, bool addSpaceAfterComma, Func<T, string> toString)
         {
-            return ToString(list, addSpaceAfterComma ? ", " : ",", toString);
+            return ToString(collection, addSpaceAfterComma ? ", " : ",", toString);
         }
 
-        public static string ToCsv<T>(this IEnumerable<T> list, string conjunction)
+        public static string ToCsv<T>(this IEnumerable<T> collection, string conjunction)
         {
-            return ToCsv(list, conjunction, item => item.ToString());
+            return ToCsv(collection, conjunction, item => item.ToString());
         }
 
-        public static string ToCsv<T>(this IEnumerable<T> list, string conjunction, Func<T, string> toString)
+        public static string ToCsv<T>(this IEnumerable<T> collection, string conjunction, Func<T, string> toString)
         {
-            list.ThrowIfNull(_ => new NullReferenceException("The collection is null."));
+            collection.ThrowIfNull(_ => new NullReferenceException("The collection is null."));
 
             conjunction = (conjunction ?? string.Empty).Length > 0 
                         ? string.Format("{0} ", conjunction)
@@ -93,39 +92,39 @@
 
             return string.Format(
                 "{0}, {1}{2}",
-                ToString(list.Take(list.Count() - 1), ", ", toString),
+                ToString(collection.Take(collection.Count() - 1), ", ", toString),
                 conjunction,
-                toString(list.Last()));
+                toString(collection.Last()));
         }
 
-        public static string ToSingleQuotedCsv<T>(this IEnumerable<T> list)
+        public static string ToSingleQuotedCsv<T>(this IEnumerable<T> collection)
         {
-            return ToCsv<T>(list, item => item.ToSingleQuotedString());
+            return ToCsv<T>(collection, item => item.ToSingleQuotedString());
         }
 
-        public static string ToSingleQuotedCsv<T>(this IEnumerable<T> list, Func<T, string> toString)
+        public static string ToSingleQuotedCsv<T>(this IEnumerable<T> collection, Func<T, string> toString)
         {
-            return ToCsv<T>(list, item => item.ToSingleQuotedString(toString));
+            return ToCsv<T>(collection, item => item.ToSingleQuotedString(toString));
         }
 
-        public static string ToSingleQuotedCsv<T>(this IEnumerable<T> list, bool addSpaceAfterComma)
+        public static string ToSingleQuotedCsv<T>(this IEnumerable<T> collection, bool addSpaceAfterComma)
         {
-            return ToCsv<T>(list, addSpaceAfterComma, item => item.ToSingleQuotedString());
+            return ToCsv<T>(collection, addSpaceAfterComma, item => item.ToSingleQuotedString());
         }
 
-        public static string ToSingleQuotedCsv<T>(this IEnumerable<T> list, bool addSpaceAfterComma, Func<T, string> toString)
+        public static string ToSingleQuotedCsv<T>(this IEnumerable<T> collection, bool addSpaceAfterComma, Func<T, string> toString)
         {
-            return ToCsv<T>(list, addSpaceAfterComma, item => item.ToSingleQuotedString(toString));
+            return ToCsv<T>(collection, addSpaceAfterComma, item => item.ToSingleQuotedString(toString));
         }
 
-        public static string ToSingleQuotedCsv<T>(this IEnumerable<T> list, string conjunction)
+        public static string ToSingleQuotedCsv<T>(this IEnumerable<T> collection, string conjunction)
         {
-            return ToCsv<T>(list, conjunction, item => item.ToSingleQuotedString());
+            return ToCsv<T>(collection, conjunction, item => item.ToSingleQuotedString());
         }
 
-        public static string ToSingleQuotedCsv<T>(this IEnumerable<T> list, string conjunction, Func<T, string> toString)
+        public static string ToSingleQuotedCsv<T>(this IEnumerable<T> collection, string conjunction, Func<T, string> toString)
         {
-            return ToCsv<T>(list, conjunction, item => item.ToSingleQuotedString(toString));
+            return ToCsv<T>(collection, conjunction, item => item.ToSingleQuotedString(toString));
         }
 
         public static List<T> FromString<T>(this string s, string separator, Converter<string, T> fromString)
@@ -139,13 +138,13 @@
 
             string[] subStrings = s.Split(new string[] { separator }, options);
 
-            List<T> list = new List<T>();
+            List<T> collection = new List<T>();
             foreach (string subStr in subStrings)
             {
-                list.Add(fromString(subStr));
+                collection.Add(fromString(subStr));
             }
 
-            return list;
+            return collection;
         }
 
         public static List<string> FromCsv(this string str)

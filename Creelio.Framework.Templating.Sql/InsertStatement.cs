@@ -1,9 +1,8 @@
 ﻿namespace Creelio.Framework.Templating.Sql
 {
     using System.Collections.Generic;
-    using Creelio.Framework.Core.Extensions.StringExtensions;
-    using Creelio.Framework.Core.Extensions.DictionaryExtensions;
     using System.Text;
+    using Creelio.Framework.Core.Extensions;
     
     public class InsertStatement
     {

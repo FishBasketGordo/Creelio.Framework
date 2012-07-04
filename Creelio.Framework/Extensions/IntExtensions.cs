@@ -1,4 +1,4 @@
-﻿namespace Creelio.Framework.Core.Extensions.IntExtensions
+﻿namespace Creelio.Framework.Core.Extensions
 {
     using System;
 

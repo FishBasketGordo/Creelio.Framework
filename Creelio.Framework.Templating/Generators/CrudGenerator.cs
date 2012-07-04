@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Creelio.Framework.Core.Data;
-    using Creelio.Framework.Core.Extensions.FuncExtensions;
+    using Creelio.Framework.Core.Extensions;
     using Creelio.Framework.Core.Extensions.MaybeMonad;
     using Creelio.Framework.Templating.Interfaces;
     using Creelio.Framework.Templating.Templates;

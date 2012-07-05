@@ -1,29 +1,35 @@
 ﻿namespace Creelio.Framework.Templating.Sql
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using Creelio.Framework.Core.Extensions;
+    using Creelio.Framework.Core.Extensions.MaybeMonad;
     
-    public class InsertStatement
+    public class InsertStatement : SqlStatement
     {
+        private Table _table = null;
+     
         private Dictionary<Column, object> _values = null;
 
         public InsertStatement()
         {
+            Formatters.Add(SqlStatementFormats.SingleLine, FormatSingleLine);
+            Formatters.Add(SqlStatementFormats.Block, FormatBlock);
         }
 
-        public InsertStatement(string tableName)
-            : this(tableName, null)
+        public Table Table
         {
-        }
+            get
+            {
+                if (_table == null)
+                {
+                    _table = new Table();
+                }
 
-        public InsertStatement(string tableName, Dictionary<Column, object> values)
-        {
-            TableName = tableName;
-            Values = values;
+                return _table;
+            }
         }
-
-        public string TableName { get; set; }
 
         public Dictionary<Column, object> Values
         {
@@ -43,19 +49,161 @@
             }
         }
 
-        public override string ToString()
+        private string FormatSingleLine()
         {
-            if (TableName.IsNullOrWhiteSpace() || Values.IsNullOrEmpty())
+            if (Table.TableName.IsNullOrWhiteSpace() || Values.IsNullOrEmpty())
             {
                 return string.Empty;
             }
-
-            var sb = new StringBuilder();
-
-            // TODO: Finish INSERT ToString
-            sb.AppendFormat("INSERT INTO [{0}]", TableName);
-
-            return sb.ToString();
+            else
+            {
+                // TODO: Finish INSERT ToString
+                return string.Format(
+                    "INSERT INTO [{0}] ({1}) VALUES ({2})",
+                    Table.TableName,
+                    Values.ToCsv(true, kvp => kvp.Key.ColumnName),
+                    Values.ToCsv(true, kvp => kvp.Value.ToString()));
+            }
         }
+
+        private string FormatBlock()
+        {
+            if (Table.TableName.IsNullOrWhiteSpace() || Values.IsNullOrEmpty())
+            {
+                return string.Empty;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        ////public void WriteInsertStatement(string tableName, IEnumerable<Dictionary<string, string>> insertRows)
+        ////{
+        ////    WriteInsertStatement(tableName, null, insertRows, null);
+        ////}
+
+        ////public void WriteInsertStatement(string tableName, string ownerName, IEnumerable<Dictionary<string, string>> insertRows)
+        ////{
+        ////    WriteInsertStatement(tableName, ownerName, insertRows, null);
+        ////}
+
+        ////public void WriteInsertStatement(string tableName, IEnumerable<Dictionary<string, string>> insertRows, Dictionary<string, int> maxLengths)
+        ////{
+        ////    WriteInsertStatement(tableName, null, insertRows, maxLengths);
+        ////}
+
+        ////public void WriteInsertStatement(string tableName, string ownerName, IEnumerable<Dictionary<string, string>> insertRows, Dictionary<string, int> maxFieldWidths)
+        ////{
+        ////    ProcessTableName(ref tableName, ownerName);
+        ////    ValidateInsertRows(insertRows);
+
+        ////    var prefixFormat = "{0,-10}";
+        ////    var fieldSeparator = " ,    ";
+
+        ////    _tt.WriteLine("INSERT INTO {0}", tableName);
+        ////    _tt.Write(prefixFormat, "(");
+
+        ////    Dictionary<string, string> fieldFormats;
+        ////    WriteInsertColumns(insertRows.First(), fieldSeparator, maxFieldWidths, out fieldFormats);
+
+        ////    _tt.WriteLine(")");
+
+        ////    WriteInsertRows(insertRows, prefixFormat, fieldSeparator, fieldFormats);
+        ////}
+
+        ////public void WriteInsertStatement(string tableName, Dictionary<string, string> insertRow)
+        ////{
+        ////    WriteInsertStatement(tableName, new List<Dictionary<string, string>> { insertRow });
+        ////}
+
+        ////public void WriteInsertStatement(string tableName, string ownerName, Dictionary<string, string> insertRow)
+        ////{
+        ////    WriteInsertStatement(tableName, ownerName, new List<Dictionary<string, string>> { insertRow });
+        ////}
+
+        ////public void WriteInsertStatement(string tableName, Dictionary<string, string> insertRow, Dictionary<string, int> maxFieldWidths)
+        ////{
+        ////    WriteInsertStatement(tableName, new List<Dictionary<string, string>> { insertRow }, maxFieldWidths);
+        ////}
+
+        ////public void WriteInsertStatement(string tableName, string ownerName, Dictionary<string, string> insertRow, Dictionary<string, int> maxFieldWidths)
+        ////{
+        ////    WriteInsertStatement(tableName, ownerName, new List<Dictionary<string, string>> { insertRow }, maxFieldWidths);
+        ////}
+
+        ////private void WriteInsertColumns(Dictionary<string, string> exampleRow, string fieldSeparator, Dictionary<string, int> maxFieldWidths, out Dictionary<string, string> fieldFormats)
+        ////{
+        ////    fieldFormats = new Dictionary<string, string>();
+
+        ////    foreach (var field in exampleRow.Take(exampleRow.Count - 1))
+        ////    {
+        ////        var fieldName = field.Key;
+        ////        var fieldFormat = GetFieldFormat(fieldName, maxFieldWidths);
+
+        ////        fieldFormats.Add(fieldName, fieldFormat);
+
+        ////        _tt.Write(fieldFormat + fieldSeparator, fieldName);
+        ////    }
+
+        ////    var lastField = exampleRow.Last();
+        ////    var lastFieldName = lastField.Key;
+        ////    var lastFieldFormat = GetFieldFormat(lastFieldName, maxFieldWidths);
+
+        ////    fieldFormats.Add(lastFieldName, lastFieldFormat);
+
+        ////    _tt.Write(lastFieldFormat + new string(' ', fieldSeparator.Length), lastFieldName);
+        ////}
+
+        ////private void WriteInsertRows(IEnumerable<Dictionary<string, string>> insertRows, string prefixFormat, string fieldSeparator, Dictionary<string, string> fieldFormats)
+        ////{
+        ////    var rowCount = insertRows.Count();
+
+        ////    _tt.WriteLines(
+        ////        insertRows,
+        ////        row => FormatInsertRecord(row, fieldFormats, prefixFormat, fieldSeparator),
+        ////        frow => FormatInsertRecord(frow, fieldFormats, prefixFormat, fieldSeparator),
+        ////        lrow => FormatLastInsertRecord(lrow, fieldFormats, prefixFormat, fieldSeparator),
+        ////        true);
+        ////}
+
+        ////private string FormatInsertRecord(Dictionary<string, string> row, Dictionary<string, string> fieldFormats, string prefixFormat, string fieldSeparator)
+        ////{
+        ////    var sb = new StringBuilder(FormatLastInsertRecord(row, fieldFormats, prefixFormat, fieldSeparator));
+        ////    sb.Append("UNION ALL");
+
+        ////    return sb.ToString();
+        ////}
+
+        ////private string FormatLastInsertRecord(Dictionary<string, string> row, Dictionary<string, string> fieldFormats, string prefixFormat, string fieldSeparator)
+        ////{
+        ////    var sb = new StringBuilder();
+        ////    sb.AppendFormat(prefixFormat, "SELECT");
+
+        ////    foreach (var field in row.Take(row.Count - 1))
+        ////    {
+        ////        var fieldName = field.Key;
+        ////        sb.AppendFormat(fieldFormats[fieldName] + fieldSeparator, field.Value);
+        ////    }
+
+        ////    var lastField = row.Last();
+        ////    var lastFieldName = lastField.Key;
+        ////    sb.AppendFormat(fieldFormats[lastFieldName] + new string(' ', fieldSeparator.Length), lastField.Value);
+
+        ////    return sb.ToString();
+        ////}
+
+        ////private string GetFieldFormat(string fieldName, Dictionary<string, int> maxFieldWidths)
+        ////{
+        ////    if (maxFieldWidths == null || !maxFieldWidths.ContainsKey(fieldName))
+        ////    {
+        ////        return "{0}";
+        ////    }
+        ////    else
+        ////    {
+        ////        var fieldWidth = maxFieldWidths[fieldName];
+        ////        return string.Format("{{0,-{0}}}", fieldWidth);
+        ////    }
+        ////}
     }
 }

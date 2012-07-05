@@ -68,7 +68,7 @@
             var column = new Column("Column1", "Table1", typeof(int));
 
             Assert.IsTrue(
-                column.CompareTo(column.ColumnName, column.TableName) == 0,
+                column.CompareTo(column.ColumnName, column.Table.TableName) == 0,
                 "A column compared with a table name and column name that matches its own should be equal.");
         }
 
@@ -192,21 +192,21 @@
         public void CreatingColumnFromQualifiedColumnNameShouldHaveEmptyDatabaseName()
         {
             var col = new Column("Table1.Column1", typeof(int));
-            Assert.AreEqual(string.Empty, col.DatabaseName);
+            Assert.AreEqual(string.Empty, col.Table.DatabaseName);
         }
 
         [TestMethod]
         public void CreatingColumnFromQualifiedColumnNameShouldHaveEmptyOwnerName()
         {
             var col = new Column("Table1.Column1", typeof(int));
-            Assert.AreEqual(string.Empty, col.OwnerName);
+            Assert.AreEqual(string.Empty, col.Table.SchemaName);
         }
 
         [TestMethod]
         public void CreatingColumnFromQualifiedColumnNameShouldHaveCorrectTableName()
         {
             var col = new Column("Table1.Column1", typeof(int));
-            Assert.AreEqual("Table1", col.TableName);                
+            Assert.AreEqual("Table1", col.Table.TableName);                
         }
 
         [TestMethod]
@@ -220,21 +220,21 @@
         public void CreatingColumnFromQualifiedAndBracketedColumnNameShouldHaveEmptyDatabaseName()
         {
             var col = new Column("[Table1].[Column1]", typeof(int));
-            Assert.AreEqual(string.Empty, col.DatabaseName);
+            Assert.AreEqual(string.Empty, col.Table.DatabaseName);
         }
 
         [TestMethod]
         public void CreatingColumnFromQualifiedAndBracketedColumnNameShouldHaveEmptyOwnerName()
         {
             var col = new Column("[Table1].[Column1]", typeof(int));
-            Assert.AreEqual(string.Empty, col.OwnerName);
+            Assert.AreEqual(string.Empty, col.Table.SchemaName);
         }
 
         [TestMethod]
         public void CreatingColumnFromQualifiedAndBracketedColumnNameShouldHaveCorrectTableName()
         {
             var col = new Column("[Table1].[Column1]", typeof(int));
-            Assert.AreEqual("Table1", col.TableName);
+            Assert.AreEqual("Table1", col.Table.TableName);
         }
 
         [TestMethod]
@@ -248,21 +248,21 @@
         public void CreatingColumnFromFullyQualifiedColumnNameShouldHaveCorrectDatabaseName()
         {
             var col = new Column("Database1.Owner1.Table1.Column1", typeof(int));
-            Assert.AreEqual("Database1", col.DatabaseName);
+            Assert.AreEqual("Database1", col.Table.DatabaseName);
         }
 
         [TestMethod]
         public void CreatingColumnFromFullyQualifiedColumnNameShouldHaveCorrectOwnerName()
         {
             var col = new Column("Database1.Owner1.Table1.Column1", typeof(int));
-            Assert.AreEqual("Owner1", col.OwnerName);
+            Assert.AreEqual("Owner1", col.Table.SchemaName);
         }
 
         [TestMethod]
         public void CreatingColumnFromFullyQualifiedColumnNameShouldHaveCorrectTableName()
         {
             var col = new Column("Database1.Owner1.Table1.Column1", typeof(int));
-            Assert.AreEqual("Table1", col.TableName);
+            Assert.AreEqual("Table1", col.Table.TableName);
         }
 
         [TestMethod]
@@ -276,21 +276,21 @@
         public void CreatingColumnFromFullyQualifiedAndBracketedColumnNameShouldHaveCorrectDatabaseName()
         {
             var col = new Column("[Database1].[Owner1].[Table1].[Column1]", typeof(int));
-            Assert.AreEqual("Database1", col.DatabaseName);
+            Assert.AreEqual("Database1", col.Table.DatabaseName);
         }
 
         [TestMethod]
         public void CreatingColumnFromFullyQualifiedAndBracketedColumnNameShouldHaveCorrectOwnerName()
         {
             var col = new Column("[Database1].[Owner1].[Table1].[Column1]", typeof(int));
-            Assert.AreEqual("Owner1", col.OwnerName);
+            Assert.AreEqual("Owner1", col.Table.SchemaName);
         }
 
         [TestMethod]
         public void CreatingColumnFromFullyQualifiedAndBracketedColumnNameShouldHaveCorrectTableName()
         {
             var col = new Column("[Database1].[Owner1].[Table1].[Column1]", typeof(int));
-            Assert.AreEqual("Table1", col.TableName);
+            Assert.AreEqual("Table1", col.Table.TableName);
         }
 
         [TestMethod]

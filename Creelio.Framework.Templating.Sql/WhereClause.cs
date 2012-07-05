@@ -76,7 +76,7 @@
             alias.ThrowIfNullOrWhiteSpace(
                     _ => new ArgumentNullException("alias"))
                  .ThrowIf(
-                    a => TableAliases.ContainsValue(a) && TableAliases.GetOrReturnNull(tableName) != a,
+                    a => TableAliases.ContainsValue(a) && TableAliases.GetOrReturnDefault(tableName) != a,
                     _ => new ArgumentException("Duplicate table alias.", "alias"));
 
             TableAliases.AddOrSet(tableName, alias);

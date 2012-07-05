@@ -60,7 +60,7 @@
             PopIndent();
 
             FormatHelper.EndWriteStoredProcedure();
-            this.WriteLine("GO");
+            this.Write("GO");
 
             return this.GenerationEnvironment.ToString();
         }
@@ -93,7 +93,7 @@
             this.PopIndent();
             
             this.WriteLine("END");
-            this.Write("GO");
+            this.WriteLine("GO");
         }
 
         protected abstract void WriteProcedureBody();

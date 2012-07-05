@@ -59,6 +59,7 @@
     <Compile Include="Constraints\ConstraintGroup.cs" />
     <Compile Include="Constraints\EqualityConstraint.cs" />
     <Compile Include="Constraints\InequalityConstraint.cs" />
+    <Compile Include="Enums\SqlStatementFormats.cs" />
     <Compile Include="Enums\InequalityType.cs" />
     <Compile Include="InsertStatement.cs" />
     <Compile Include="Interfaces\IColumnBasedConstraint.cs" />
@@ -68,6 +69,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Constraints\SubSelectConstraint.cs" />
     <Compile Include="Constraints\ValueConstraint.cs" />
+    <Compile Include="SqlStatement.cs" />
+    <Compile Include="Table.cs" />
     <Compile Include="WhereClause.cs" />
   </ItemGroup>
   <ItemGroup>

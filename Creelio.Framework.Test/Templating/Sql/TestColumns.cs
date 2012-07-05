@@ -85,7 +85,7 @@
             {
                 get
                 {
-                    return string.Format("SELECT {0} FROM {1}", Column.ColumnName, Column.TableName);
+                    return string.Format("SELECT {0} FROM {1}", Column.ColumnName, Column.Table.TableName);
                 }
             }
 

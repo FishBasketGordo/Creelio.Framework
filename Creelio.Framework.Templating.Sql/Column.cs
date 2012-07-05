@@ -30,11 +30,7 @@
 
         private static Dictionary<DbType, Type> _dbTypeToType = null;
 
-        private string _databaseName;
-
-        private string _ownerName;
-
-        private string _tableName;
+        private Table _table = null;
 
         private string _columnName;
 
@@ -59,19 +55,15 @@
 
         public Column(string columnName, string tableName, Type type)
         {
-            DatabaseName = string.Empty;
-            OwnerName = string.Empty;
+            Table.TableName = tableName;
             ColumnName = columnName;
-            TableName = tableName;
             Type = type;
         }
 
         public Column(string columnName, string tableName, DbType dbType)
         {
-            DatabaseName = string.Empty;
-            OwnerName = string.Empty;
+            Table.TableName = tableName;
             ColumnName = columnName;
-            TableName = tableName;
             DbType = dbType;
         }
 
@@ -87,46 +79,19 @@
             ParseFullyQualifiedColumnName(fullyQualifiedColumnName);
         }
 
-        public string DatabaseName
+        public Table Table
         {
             get
             {
-                return _databaseName;
-            }
+                if (_table == null)
+                {
+                    _table = new Table();
+                }
 
-            set
-            {
-                _databaseName = value ?? string.Empty;
-            }
-        }
-
-        public string OwnerName
-        {
-            get
-            {
-                return _ownerName;
-            }
-
-            set
-            {
-                _ownerName = value ?? string.Empty;
+                return _table;
             }
         }
-
-        public string TableName
-        {
-            get
-            {
-                return _tableName;
-            }
-
-            set
-            {
-                value.ThrowIfNullOrWhiteSpace(_ => new ArgumentNullException("Table name cannot be blank."));
-                _tableName = value;
-            }
-        }
-
+        
         public string ColumnName
         {
             get
@@ -193,21 +158,7 @@
 
         public override string ToString()
         {
-            var columnNameParts = new List<string>();
-
-            DatabaseName.DoIf(
-                d => !string.IsNullOrEmpty(d),
-                d => columnNameParts.Add(string.Format("[{0}]", d)));
-
-            OwnerName.DoIf(
-                o => !string.IsNullOrEmpty(o),
-                o => columnNameParts.Add(string.Format("[{0}]", o)));
-
-            columnNameParts.Add(string.Format("[{0}]", TableName));
-
-            columnNameParts.Add(string.Format("[{0}]", ColumnName));
-
-            return columnNameParts.Aggregate((s1, s2) => string.Format("{0}.{1}", s1, s2));
+            return string.Format("{0}.[{1}]", Table, ColumnName);
         }
 
         public string ToString(string tableAlias)
@@ -218,25 +169,25 @@
 
         public int CompareTo(Column other)
         {
-            return this.CompareToProperties(other, "ColumnName", "TableName", "Type.FullName");
+            return this.CompareToProperties(other, "ColumnName", "Table.TableName", "Type.FullName");
         }
 
         public int CompareTo(string columnName)
         {
-            var other = new Column(columnName, TableName, Type);
+            var other = new Column(columnName, Table.TableName, Type);
             return this.CompareToProperties(other, "ColumnName");
         }
 
         public int CompareTo(string columnName, string tableName)
         {
             var other = new Column(columnName, tableName, Type);
-            return this.CompareToProperties(other, "ColumnName", "TableName");
+            return this.CompareToProperties(other, "ColumnName", "Table.TableName");
         }
 
         public bool Exists(string connectionString, string databaseName)
         {
             var dataProvider = new SmoDataProvider(connectionString);
-            var column = dataProvider.GetColumn(DatabaseName, TableName, ColumnName);
+            var column = dataProvider.GetColumn(Table.DatabaseName, Table.TableName, ColumnName);
 
             // TODO: Check on column type. May need to switch to Smo.SqlDataType
             return column != null;
@@ -263,9 +214,9 @@
                                    select cnp.TrimStart('[').TrimEnd(']')).Reverse();
 
             ColumnName = columnNameParts.FirstOrDefault() ?? string.Empty;
-            TableName = columnNameParts.Skip(1).FirstOrDefault() ?? string.Empty;
-            OwnerName = columnNameParts.Skip(2).FirstOrDefault() ?? string.Empty;
-            DatabaseName = columnNameParts.Skip(3).FirstOrDefault() ?? string.Empty;
+            Table.TableName = columnNameParts.Skip(1).FirstOrDefault() ?? string.Empty;
+            Table.SchemaName = columnNameParts.Skip(2).FirstOrDefault() ?? string.Empty;
+            Table.DatabaseName = columnNameParts.Skip(3).FirstOrDefault() ?? string.Empty;
         }
     }
 }

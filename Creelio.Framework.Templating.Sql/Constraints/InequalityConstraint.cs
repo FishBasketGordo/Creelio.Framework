@@ -43,7 +43,7 @@
 
         protected override string GetOperatorForValue(T value)
         {
-            var op = _operatorDictionary.GetOrReturnNull(InequalityType);
+            var op = _operatorDictionary.GetOrReturnDefault(InequalityType);
             op.ThrowIfNull(_ => new ArgumentNullException(string.Format("Unrecognized inequality type: {0}.", InequalityType)));
 
             return op;

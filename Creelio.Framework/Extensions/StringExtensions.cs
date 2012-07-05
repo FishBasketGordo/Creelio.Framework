@@ -22,6 +22,16 @@
             return string.IsNullOrWhiteSpace(s);
         }
 
+        public static string TrimOrEmpty(this string s)
+        {
+            return IsNullOrWhiteSpace(s) ? string.Empty : s.Trim();
+        }
+
+        public static string TrimOrEmpty(this string s, params char[] trimChars)
+        {
+            return IsNullOrWhiteSpace(s) ? string.Empty : s.Trim(trimChars);
+        }
+
         public static string ToCamelCase(this string s)
         {
             if (string.IsNullOrEmpty(s))

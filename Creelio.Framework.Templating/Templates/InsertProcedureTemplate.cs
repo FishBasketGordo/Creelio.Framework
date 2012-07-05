@@ -1,6 +1,8 @@
 ﻿namespace Creelio.Framework.Templating.Templates
 {
     using Creelio.Framework.Core.Data;
+    using System.Collections.Generic;
+    using Microsoft.SqlServer.Management.Smo;
 
     public class InsertProcedureTemplate : ProcedureTemplate
     {
@@ -16,8 +18,15 @@
 
         protected override void WriteProcedureBody()
         {
-            WriteLine("-- TODO");
-            WriteLine("SELECT 1");
+            // TODO: Rewrite with InsertStatement class
+
+            ////var values = new Dictionary<string, string>();
+            ////foreach (Column column in Table.Columns)
+            ////{
+            ////    values.Add(column.Name, string.Format("@{0}", column.Name));
+            ////}
+
+            ////FormatHelper.WriteInsertStatement(TableName, SchemaName, values);
         }
     }
 }

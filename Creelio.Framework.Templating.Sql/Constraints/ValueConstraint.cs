@@ -165,7 +165,7 @@
         protected virtual string ColumnToString(Column column)
         {
             var alias = Parent.Return(
-                p => p.TableAliases.GetOrReturnNull(column.TableName), 
+                p => p.TableAliases.GetOrReturnDefault(column.Table.TableName), 
                 null);
 
             return string.IsNullOrEmpty(alias)

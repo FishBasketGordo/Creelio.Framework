@@ -23,9 +23,8 @@
         }
 
         public static V GetOrAddDefault<K, V>(this IDictionary<K, V> dictionary, K key)
-            where V : new()
         {
-            return dictionary.GetOrAddDefault(key, () => new V());
+            return dictionary.GetOrAddDefault(key, () => default(V));
         }
 
         public static V GetOrAddDefault<K, V>(this IDictionary<K, V> dictionary, K key, V defaultValue)
@@ -46,9 +45,8 @@
         }
 
         public static V GetOrReturnDefault<K, V>(this IDictionary<K, V> dictionary, K key)
-            where V : new()
         {
-            return dictionary.GetOrReturnDefault(key, () => new V());
+            return dictionary.GetOrReturnDefault(key, () => default(V));
         }
 
         public static V GetOrReturnDefault<K, V>(this IDictionary<K, V> dictionary, K key, V defaultValue)
@@ -68,12 +66,6 @@
             {
                 return getDefault();
             }
-        }
-
-        public static V GetOrReturnNull<K, V>(this IDictionary<K, V> dictionary, K key)
-            where V : class
-        {
-            return GetOrReturnDefault(dictionary, key, () => null);
         }
 
         public static bool ContainsKeyValue<K, V>(this IDictionary<K, V> dictionary, K key, V value)

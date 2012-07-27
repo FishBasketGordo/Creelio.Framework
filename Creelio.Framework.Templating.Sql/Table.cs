@@ -54,24 +54,32 @@
             }
         }
 
-        public override string ToString()
+        public string FullyQualifiedTableName
         {
-            TableName.ThrowIfNullOrWhiteSpace(
+            get
+            {
+                TableName.ThrowIfNullOrWhiteSpace(
                 _ => new InvalidOperationException("Cannot call ToString on a table with no name."));
 
-            var columnNameParts = new List<string>();
+                var columnNameParts = new List<string>();
 
-            DatabaseName.DoIf(
-                d => !string.IsNullOrEmpty(d),
-                d => columnNameParts.Add(string.Format("[{0}]", d)));
+                DatabaseName.DoIf(
+                    d => !string.IsNullOrEmpty(d),
+                    d => columnNameParts.Add(string.Format("[{0}]", d)));
 
-            SchemaName.DoIf(
-                s => !string.IsNullOrEmpty(s),
-                s => columnNameParts.Add(string.Format("[{0}]", s)));
+                SchemaName.DoIf(
+                    s => !string.IsNullOrEmpty(s),
+                    s => columnNameParts.Add(string.Format("[{0}]", s)));
 
-            columnNameParts.Add(string.Format("[{0}]", TableName));
+                columnNameParts.Add(string.Format("[{0}]", TableName));
 
-            return columnNameParts.Aggregate((s1, s2) => string.Format("{0}.{1}", s1, s2));
+                return columnNameParts.Aggregate((s1, s2) => string.Format("{0}.{1}", s1, s2));
+            }
+        }
+
+        public override string ToString()
+        {
+            return FullyQualifiedTableName;
         }
     }
 }

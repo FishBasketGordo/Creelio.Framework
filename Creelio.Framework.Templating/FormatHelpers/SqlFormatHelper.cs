@@ -169,16 +169,6 @@
             return string.Format("[{0}] = @{0}", column.Name);
         }
 
-        private void ProcessTableName(ref string tableName, string ownerName)
-        {
-            ProcessIdentifier(ref tableName, "Table name");
-            ProcessNullableIdentifier(ref ownerName, "Owner name");
-
-            tableName = ownerName == null
-                      ? string.Format("[{0}]", tableName)
-                      : string.Format("[{0}].[{1}]", ownerName, tableName);
-        }
-
         private void ProcessVarName(ref string varName)
         {
             ProcessIdentifier(ref varName, "Variable name");
@@ -192,18 +182,6 @@
         private void ProcessSqlDataType(ref string sqlDataType, ref string defaultValue)
         {
             ProcessIdentifier(ref sqlDataType, "SQL data type");
-        }
-
-        private void ValidateInsertRows(IEnumerable<Dictionary<string, string>> insertRows)
-        {
-            if (insertRows == null)
-            {
-                throw new ArgumentNullException("insertRows");
-            }
-            else if (insertRows.Count() < 1)
-            {
-                throw new ArgumentException("There are no rows to insert.", "insertRows");
-            }
         }
 
         private string GetFormattedDataType(Column column)

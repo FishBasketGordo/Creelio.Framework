@@ -57,7 +57,7 @@
             }
             else
             {
-                // TODO: Finish INSERT ToString
+                // TODO: Finish INSERT ToString - Need to quote values
                 return string.Format(
                     "INSERT INTO [{0}] ({1}) VALUES ({2})",
                     Table.TableName,
@@ -74,24 +74,19 @@
             }
             else
             {
-                return null;
+                var sb = new StringBuilder();
+                var prefixFormat = "{0,-10}";
+
+                sb.AppendFormat("INSERT INTO {0}", Table.FullyQualifiedTableName);
+                sb.AppendFormat(prefixFormat, "(");
+
+
+
+                sb.AppendLine(")");
+
+                return sb.ToString();
             }
         }
-
-        ////public void WriteInsertStatement(string tableName, IEnumerable<Dictionary<string, string>> insertRows)
-        ////{
-        ////    WriteInsertStatement(tableName, null, insertRows, null);
-        ////}
-
-        ////public void WriteInsertStatement(string tableName, string ownerName, IEnumerable<Dictionary<string, string>> insertRows)
-        ////{
-        ////    WriteInsertStatement(tableName, ownerName, insertRows, null);
-        ////}
-
-        ////public void WriteInsertStatement(string tableName, IEnumerable<Dictionary<string, string>> insertRows, Dictionary<string, int> maxLengths)
-        ////{
-        ////    WriteInsertStatement(tableName, null, insertRows, maxLengths);
-        ////}
 
         ////public void WriteInsertStatement(string tableName, string ownerName, IEnumerable<Dictionary<string, string>> insertRows, Dictionary<string, int> maxFieldWidths)
         ////{
@@ -110,26 +105,6 @@
         ////    _tt.WriteLine(")");
 
         ////    WriteInsertRows(insertRows, prefixFormat, fieldSeparator, fieldFormats);
-        ////}
-
-        ////public void WriteInsertStatement(string tableName, Dictionary<string, string> insertRow)
-        ////{
-        ////    WriteInsertStatement(tableName, new List<Dictionary<string, string>> { insertRow });
-        ////}
-
-        ////public void WriteInsertStatement(string tableName, string ownerName, Dictionary<string, string> insertRow)
-        ////{
-        ////    WriteInsertStatement(tableName, ownerName, new List<Dictionary<string, string>> { insertRow });
-        ////}
-
-        ////public void WriteInsertStatement(string tableName, Dictionary<string, string> insertRow, Dictionary<string, int> maxFieldWidths)
-        ////{
-        ////    WriteInsertStatement(tableName, new List<Dictionary<string, string>> { insertRow }, maxFieldWidths);
-        ////}
-
-        ////public void WriteInsertStatement(string tableName, string ownerName, Dictionary<string, string> insertRow, Dictionary<string, int> maxFieldWidths)
-        ////{
-        ////    WriteInsertStatement(tableName, ownerName, new List<Dictionary<string, string>> { insertRow }, maxFieldWidths);
         ////}
 
         ////private void WriteInsertColumns(Dictionary<string, string> exampleRow, string fieldSeparator, Dictionary<string, int> maxFieldWidths, out Dictionary<string, string> fieldFormats)
@@ -203,6 +178,28 @@
         ////    {
         ////        var fieldWidth = maxFieldWidths[fieldName];
         ////        return string.Format("{{0,-{0}}}", fieldWidth);
+        ////    }
+        ////}
+
+        ////private void ProcessTableName(ref string tableName, string ownerName)
+        ////{
+        ////    ProcessIdentifier(ref tableName, "Table name");
+        ////    ProcessNullableIdentifier(ref ownerName, "Owner name");
+
+        ////    tableName = ownerName == null
+        ////              ? string.Format("[{0}]", tableName)
+        ////              : string.Format("[{0}].[{1}]", ownerName, tableName);
+        ////}
+
+        ////private void ValidateInsertRows(IEnumerable<Dictionary<string, string>> insertRows)
+        ////{
+        ////    if (insertRows == null)
+        ////    {
+        ////        throw new ArgumentNullException("insertRows");
+        ////    }
+        ////    else if (insertRows.Count() < 1)
+        ////    {
+        ////        throw new ArgumentException("There are no rows to insert.", "insertRows");
         ////    }
         ////}
     }

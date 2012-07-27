@@ -106,6 +106,14 @@
             }
         }
 
+        public string FullQualifiedColumnName
+        {
+            get
+            {
+                return string.Format("{0}.[{1}]", Table.FullyQualifiedTableName, ColumnName);
+            }
+        }
+
         public Type Type
         {
             get
@@ -158,7 +166,7 @@
 
         public override string ToString()
         {
-            return string.Format("{0}.[{1}]", Table, ColumnName);
+            return FullQualifiedColumnName;
         }
 
         public string ToString(string tableAlias)

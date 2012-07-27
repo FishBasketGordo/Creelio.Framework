@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Data\SmoDataProviderTest.cs" />
+    <Compile Include="Core\Extensions\ActionExtensionsTest.cs" />
     <Compile Include="Core\Extensions\FuncExtensionsTest.cs" />
     <Compile Include="Core\Extensions\IComparableExtensionsTests.cs" />
     <Compile Include="Core\Extensions\IEnumerableExtensionsTest.cs" />

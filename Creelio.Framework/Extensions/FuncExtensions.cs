@@ -45,19 +45,39 @@
             return (arg1, arg2, arg3) => predicate1(arg1, arg2, arg3) || predicate2(arg1, arg2, arg3);
         }
 
-        public static TOutput InvokeOrReturnDefault<TOutput>(this Func<TOutput> func)
+        public static TResult InvokeOrReturnDefault<TResult>(this Func<TResult> func)
         {
-            return func == null ? default(TOutput) : func();
+            return func == null ? default(TResult) : func();
         }
 
-        public static TOutput InvokeOrReturnDefault<TOutput>(this Func<TOutput> func, TOutput defaultValue)
+        public static TResult InvokeOrReturnDefault<TResult>(this Func<TResult> func, TResult defaultValue)
         {
             return func == null ? defaultValue : func();
         }
 
-        public static TOutput InvokeOrReturnDefault<TOutput>(this Func<TOutput> func, Func<TOutput> getDefaultValue)
+        public static TResult InvokeOrReturnDefault<TResult>(this Func<TResult> func, Func<TResult> getDefaultValue)
         {
             return func == null ? getDefaultValue() : func();
+        }
+
+        public static TResult Boilerplate<TResult>(this Func<TResult> func, Func<Func<TResult>, TResult> boilerplate)
+        {
+            return boilerplate(func);
+        }
+
+        public static Func<TResult> Apply<T1, TResult>(this Func<T1, TResult> func, T1 arg1)
+        {
+            return () => func(arg1);
+        }
+
+        public static Func<TResult> Apply<T1, T2, TResult>(this Func<T1, T2, TResult> func, T1 arg1, T2 arg2)
+        {
+            return () => func(arg1, arg2);
+        }
+
+        public static Func<TResult> Apply<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func, T1 arg1, T2 arg2, T3 arg3)
+        {
+            return () => func(arg1, arg2, arg3);
         }
     }
 }

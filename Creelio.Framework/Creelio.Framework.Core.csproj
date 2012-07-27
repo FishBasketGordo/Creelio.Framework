@@ -80,6 +80,7 @@
     <Compile Include="Data\ReadOnlyDataAccessor.cs" />
     <Compile Include="Data\SmoDataProvider.cs" />
     <Compile Include="Exceptions\MemberNotSetException.cs" />
+    <Compile Include="Extensions\ActionExtensions.cs" />
     <Compile Include="Extensions\ByteArrayExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\IDictionaryExtensions.cs" />

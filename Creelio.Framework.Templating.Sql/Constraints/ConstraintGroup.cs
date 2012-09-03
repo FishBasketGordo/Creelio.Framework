@@ -4,7 +4,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using Creelio.Framework.Core.Extensions;
+    using Creelio.Framework.Extensions;
 
     public class ConstraintGroup : Constraint
     {

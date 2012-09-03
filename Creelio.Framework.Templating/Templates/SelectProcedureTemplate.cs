@@ -1,8 +1,8 @@
 ﻿namespace Creelio.Framework.Templating.Templates
 {
     using System.Collections.Generic;
-    using Creelio.Framework.Core.Data;
-    using Creelio.Framework.Core.Extensions;
+    using Creelio.Framework.Data;
+    using Creelio.Framework.Extensions;
     using Microsoft.SqlServer.Management.Smo;
 
     public class SelectProcedureTemplate : ProcedureTemplate

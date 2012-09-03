@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Creelio.Framework.Core.Exceptions
+namespace Creelio.Framework.Exceptions
 {
     public class MemberNotSetException : Exception
     {

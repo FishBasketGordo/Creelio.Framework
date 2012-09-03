@@ -1,6 +1,4 @@
-﻿using Creelio.Framework.Core.Presentation;
-
-namespace Creelio.Framework.Core.Interfaces
+﻿namespace Creelio.Framework.Interfaces
 {
     public interface IServiceMetadata
     {

@@ -1,7 +1,7 @@
 ﻿namespace Creelio.Framework.Templating.Templates
 {
     using System.Collections.Generic;
-    using Creelio.Framework.Core.Data;
+    using Creelio.Framework.Data;
     using Creelio.Framework.Templating.Extensions.TextTransformationExtensions;
     using Creelio.Framework.Templating.FormatHelpers;
     using Microsoft.SqlServer.Management.Smo;

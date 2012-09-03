@@ -1,8 +1,8 @@
 ﻿namespace Creelio.Framework.Templating.Sql
 {
     using System;
-    using Creelio.Framework.Core.Extensions.MaybeMonad;
-    using Creelio.Framework.Core;
+    using Creelio.Framework.Extensions;
+    using Creelio.Framework;
 
     public class ColumnConstraint : EqualityConstraint<Column>
     {

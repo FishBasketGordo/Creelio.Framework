@@ -1,7 +1,7 @@
 ﻿namespace Creelio.Framework.Test.Core
 {
     using System;
-    using Creelio.Framework.Core;
+    using Creelio.Framework;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

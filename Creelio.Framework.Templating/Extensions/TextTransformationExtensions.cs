@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
-    using Creelio.Framework.Core.Extensions.MaybeMonad;
+    using Creelio.Framework.Extensions;
     using Microsoft.VisualStudio.TextTemplating;
 
     public static class TextTransformationExtensions

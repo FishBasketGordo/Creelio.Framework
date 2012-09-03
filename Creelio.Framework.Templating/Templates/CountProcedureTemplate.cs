@@ -1,6 +1,6 @@
 ﻿namespace Creelio.Framework.Templating.Templates
 {
-    using Creelio.Framework.Core.Data;
+    using Creelio.Framework.Data;
 
     public class CountProcedureTemplate : ProcedureTemplate
     {

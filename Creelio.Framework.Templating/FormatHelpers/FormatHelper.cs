@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Creelio.Framework.Core.Extensions.MaybeMonad;
+using Creelio.Framework.Extensions;
 using Creelio.Framework.Templating.Extensions.TextTransformationExtensions;
 using Microsoft.VisualStudio.TextTemplating;
 

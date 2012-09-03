@@ -1,4 +1,4 @@
-﻿namespace Creelio.Framework.Core.Interfaces
+﻿namespace Creelio.Framework.Interfaces
 {
     public interface ISessionProvider
     {

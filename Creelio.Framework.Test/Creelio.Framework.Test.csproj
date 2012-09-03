@@ -80,6 +80,7 @@
     <Compile Include="Core\Extensions\IEnumerableExtensionsTest.cs" />
     <Compile Include="Core\Extensions\IntExtensionsTest.cs" />
     <Compile Include="Core\GuardTest.cs" />
+    <Compile Include="Core\NavigationItemTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Data\SmoDataProviderTest_Checkbook.cs" />
     <Compile Include="Templating\Extensions\TextTransformationExtensionsTest.cs" />
@@ -96,8 +97,29 @@
     <Compile Include="Templating\Sql\TestConstraints.cs" />
     <Compile Include="Templating\Sql\ValueConstraintTest.cs" />
     <Compile Include="Templating\Sql\WhereClauseTest.cs" />
+    <Compile Include="WebServices\Dto\BooleanRequestTests.cs" />
+    <Compile Include="WebServices\Dto\BooleanResponseTests.cs" />
+    <Compile Include="WebServices\Dto\DateTimeRequestTests.cs" />
+    <Compile Include="WebServices\Dto\DateTimeResponseTests.cs" />
+    <Compile Include="WebServices\Dto\DecimalRequestTests.cs" />
+    <Compile Include="WebServices\Dto\DecimalResponseTests.cs" />
+    <Compile Include="WebServices\Dto\DoubleRequestTests.cs" />
+    <Compile Include="WebServices\Dto\DoubleResponseTests.cs" />
+    <Compile Include="WebServices\Dto\Int32RequestTests.cs" />
+    <Compile Include="WebServices\Dto\Int32ResponseTests.cs" />
+    <Compile Include="WebServices\Dto\ItemRequestTests.cs" />
+    <Compile Include="WebServices\Dto\ItemResponseTests.cs" />
+    <Compile Include="WebServices\Dto\ListRequestTests.cs" />
+    <Compile Include="WebServices\Dto\ListResponseTests.cs" />
+    <Compile Include="WebServices\Dto\StringRequestTests.cs" />
+    <Compile Include="WebServices\Dto\StringResponseTests.cs" />
+    <Compile Include="WebServices\WebServiceProxyTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Creelio.Framework.Data\Creelio.Framework.Data.csproj">
+      <Project>{7F4CB375-7D7A-4821-840D-B08556730F86}</Project>
+      <Name>Creelio.Framework.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Creelio.Framework.Templating.Sql\Creelio.Framework.Templating.Sql.csproj">
       <Project>{CD824F74-0F0E-4C4D-B64D-AFCAE5B0C15B}</Project>
       <Name>Creelio.Framework.Templating.Sql</Name>
@@ -106,9 +128,17 @@
       <Project>{FE55A910-C1DE-46E6-A430-F07EE5E300BA}</Project>
       <Name>Creelio.Framework.Templating</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Creelio.Framework\Creelio.Framework.Core.csproj">
+    <ProjectReference Include="..\Creelio.Framework.UnitTesting\Creelio.Framework.UnitTesting.csproj">
+      <Project>{1B762F61-29FA-47C9-843A-9FF5DD7D4298}</Project>
+      <Name>Creelio.Framework.UnitTesting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Creelio.Framework.WebServices\Creelio.Framework.WebServices.csproj">
+      <Project>{34B6D0CA-E2B4-4973-A581-74FF29871EBA}</Project>
+      <Name>Creelio.Framework.WebServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Creelio.Framework\Creelio.Framework.csproj">
       <Project>{E55167AB-5744-4577-8A2E-BC8D474D3B34}</Project>
-      <Name>Creelio.Framework.Core</Name>
+      <Name>Creelio.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Creelio.Framework.Core.Extensions;
+    using Creelio.Framework.Extensions;
     using Creelio.Framework.Templating.Sql;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 

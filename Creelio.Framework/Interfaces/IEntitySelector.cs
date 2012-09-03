@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Creelio.Framework.Core.Interfaces
+namespace Creelio.Framework.Interfaces
 {
     public interface IEntitySelector<T> where T : class, new()
     {

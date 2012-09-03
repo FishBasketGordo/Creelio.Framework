@@ -93,12 +93,15 @@
     <Compile Include="Templates\UpdateProcedureTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Creelio.Framework\Creelio.Framework.Core.csproj">
+    <ProjectReference Include="..\Creelio.Framework.Data\Creelio.Framework.Data.csproj">
+      <Project>{7F4CB375-7D7A-4821-840D-B08556730F86}</Project>
+      <Name>Creelio.Framework.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Creelio.Framework\Creelio.Framework.csproj">
       <Project>{E55167AB-5744-4577-8A2E-BC8D474D3B34}</Project>
-      <Name>Creelio.Framework.Core</Name>
+      <Name>Creelio.Framework</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

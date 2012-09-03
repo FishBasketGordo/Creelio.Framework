@@ -2,7 +2,7 @@
 {
     using System.Configuration;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Creelio.Framework.Core.Data;
+    using Creelio.Framework.Data;
     using System;
     using Microsoft.SqlServer.Management.Smo;
     using System.Collections.Generic;

@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using Creelio.Framework.Core.Extensions;
-    using Creelio.Framework.Core.Extensions.MaybeMonad;
+    using Creelio.Framework.Extensions;
+    using Creelio.Framework.Extensions;
 
     public class InequalityConstraint<T> : ValueConstraint<T>
     {

@@ -4,9 +4,9 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Creelio.Framework.Core.Data;
-    using Creelio.Framework.Core.Extensions;
-    using Creelio.Framework.Core.Extensions.MaybeMonad;
+    using Creelio.Framework.Data;
+    using Creelio.Framework.Extensions;
+    using Creelio.Framework.Extensions;
 
     public sealed class Column : IComparable<Column>
     {

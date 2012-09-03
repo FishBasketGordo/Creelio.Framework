@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using Creelio.Framework.Core.Extensions;
-    using Creelio.Framework.Core.Extensions.MaybeMonad;
+    using Creelio.Framework.Extensions;
+    using Creelio.Framework.Extensions;
     
     public class InsertStatement : SqlStatement
     {

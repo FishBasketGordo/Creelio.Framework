@@ -1,11 +1,11 @@
-﻿namespace Creelio.Framework.Core.Extensions
+﻿namespace Creelio.Framework.Extensions
 {
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using Creelio.Framework.Core.Extensions.MaybeMonad;
+    using Creelio.Framework.Extensions;
 
     public static class IEnumerableExtensions
     {
@@ -40,6 +40,154 @@
             }
 
             return collection.Skip(collectionCount - count);
+        }
+
+        public static IEnumerable<Tuple<T1, T2>> CombineItems<T1, T2>(
+            this IEnumerable<T1> collection1, 
+            IEnumerable<T2> collection2)
+        {
+            return CombineItems<T1, T2, Tuple<T1, T2>>(
+                collection1, 
+                collection2, 
+                (item1, item2) => Tuple.Create(item1, item2));
+        }
+
+        public static IEnumerable<Tuple<T1, T2, T3>> CombineItems<T1, T2, T3>(
+            this IEnumerable<T1> collection1,
+            IEnumerable<T2> collection2,
+            IEnumerable<T3> collection3)
+        {
+            return CombineItems<T1, T2, T3, Tuple<T1, T2, T3>>(
+                collection1,
+                collection2,
+                collection3,
+                (item1, item2, item3) => Tuple.Create(item1, item2, item3));
+        }
+
+        public static IEnumerable<Tuple<T1, T2, T3, T4>> CombineItems<T1, T2, T3, T4>(
+            this IEnumerable<T1> collection1,
+            IEnumerable<T2> collection2,
+            IEnumerable<T3> collection3,
+            IEnumerable<T4> collection4)
+        {
+            return CombineItems<T1, T2, T3, T4, Tuple<T1, T2, T3, T4>>(
+                collection1,
+                collection2,
+                collection3,
+                collection4,
+                (item1, item2, item3, item4) => Tuple.Create(item1, item2, item3, item4));
+        }
+
+        public static IEnumerable<Tuple<T1, T2, T3, T4, T5>> CombineItems<T1, T2, T3, T4, T5>(
+            this IEnumerable<T1> collection1,
+            IEnumerable<T2> collection2,
+            IEnumerable<T3> collection3,
+            IEnumerable<T4> collection4,
+            IEnumerable<T5> collection5)
+        {
+            return CombineItems<T1, T2, T3, T4, T5, Tuple<T1, T2, T3, T4, T5>>(
+                collection1,
+                collection2,
+                collection3,
+                collection4,
+                collection5,
+                (item1, item2, item3, item4, item5) => Tuple.Create(item1, item2, item3, item4, item5));
+        }
+
+        public static IEnumerable<TResult> CombineItems<T1, T2, TResult>(
+            this IEnumerable<T1> collection1,
+            IEnumerable<T2> collection2,
+            Func<T1, T2, TResult> selector)
+        {
+            using (var enumerator1 = collection1.GetEnumerator())
+            using (var enumerator2 = collection2.GetEnumerator())
+            {
+                while (enumerator1.MoveNext() 
+                    && enumerator2.MoveNext())
+                {
+                    yield return selector(
+                        enumerator1.Current, 
+                        enumerator2.Current);
+                }
+            }
+        }
+
+        public static IEnumerable<TResult> CombineItems<T1, T2, T3, TResult>(
+            this IEnumerable<T1> collection1,
+            IEnumerable<T2> collection2,
+            IEnumerable<T3> collection3,
+            Func<T1, T2, T3, TResult> selector)
+        {
+            using (var enumerator1 = collection1.GetEnumerator())
+            using (var enumerator2 = collection2.GetEnumerator())
+            using (var enumerator3 = collection3.GetEnumerator())
+            {
+                while (enumerator1.MoveNext() 
+                    && enumerator2.MoveNext()
+                    && enumerator3.MoveNext())
+                {
+                    yield return selector(
+                        enumerator1.Current,
+                        enumerator2.Current,
+                        enumerator3.Current);
+                }
+            }            
+        }
+
+        public static IEnumerable<TResult> CombineItems<T1, T2, T3, T4, TResult>(
+            this IEnumerable<T1> collection1,
+            IEnumerable<T2> collection2,
+            IEnumerable<T3> collection3,
+            IEnumerable<T4> collection4,
+            Func<T1, T2, T3, T4, TResult> selector)
+        {
+            using (var enumerator1 = collection1.GetEnumerator())
+            using (var enumerator2 = collection2.GetEnumerator())
+            using (var enumerator3 = collection3.GetEnumerator())
+            using (var enumerator4 = collection4.GetEnumerator())
+            {
+                while (enumerator1.MoveNext()
+                    && enumerator2.MoveNext()
+                    && enumerator3.MoveNext()
+                    && enumerator4.MoveNext())
+                {
+                    yield return selector(
+                        enumerator1.Current,
+                        enumerator2.Current,
+                        enumerator3.Current,
+                        enumerator4.Current);
+                }
+            }
+        }
+
+        public static IEnumerable<TResult> CombineItems<T1, T2, T3, T4, T5, TResult>(
+            this IEnumerable<T1> collection1,
+            IEnumerable<T2> collection2,
+            IEnumerable<T3> collection3,
+            IEnumerable<T4> collection4,
+            IEnumerable<T5> collection5,
+            Func<T1, T2, T3, T4, T5, TResult> selector)
+        {
+            using (var enumerator1 = collection1.GetEnumerator())
+            using (var enumerator2 = collection2.GetEnumerator())
+            using (var enumerator3 = collection3.GetEnumerator())
+            using (var enumerator4 = collection4.GetEnumerator())
+            using (var enumerator5 = collection5.GetEnumerator())
+            {
+                while (enumerator1.MoveNext()
+                    && enumerator2.MoveNext()
+                    && enumerator3.MoveNext()
+                    && enumerator4.MoveNext()
+                    && enumerator5.MoveNext())
+                {
+                    yield return selector(
+                        enumerator1.Current,
+                        enumerator2.Current,
+                        enumerator3.Current,
+                        enumerator4.Current,
+                        enumerator5.Current);
+                }
+            }
         }
 
         public static string ToString<T>(this IEnumerable<T> collection, string separator)

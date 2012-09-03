@@ -1,4 +1,4 @@
-﻿namespace Creelio.Framework.Core.Extensions
+﻿namespace Creelio.Framework.Extensions
 {
     using System.Text;
 

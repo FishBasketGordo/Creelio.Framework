@@ -1,4 +1,4 @@
-﻿namespace Creelio.Framework.Core
+﻿namespace Creelio.Framework
 {
     using System;
     using System.Collections;

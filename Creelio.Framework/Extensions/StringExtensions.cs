@@ -1,8 +1,8 @@
-﻿namespace Creelio.Framework.Core.Extensions
+﻿namespace Creelio.Framework.Extensions
 {
     using System;
     using System.Text;
-    using Creelio.Framework.Core.Extensions.MaybeMonad;
+    using Creelio.Framework.Extensions;
 
     public static class StringExtensions
     {

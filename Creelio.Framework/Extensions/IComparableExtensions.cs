@@ -1,10 +1,10 @@
-﻿namespace Creelio.Framework.Core.Extensions
+﻿namespace Creelio.Framework.Extensions
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using Creelio.Framework.Core.Extensions.MaybeMonad;
+    using Creelio.Framework.Extensions;
 
     public static class IComparableExtensions
     {
@@ -52,7 +52,7 @@
                               let ov = prop.GetValue(other)
                               select (int)compareTo.Invoke(cv, new object[] { ov });
 
-            return comparisons.FirstOrDefault(c => c != 0);
+            return comparisons.FirstOrDefault(c => c != (int)ComparableResult.EqualToOther);
         }
 
         private static IEnumerable<InnerPropertyReflector> GetProperties<T>(string[] propertyNames)

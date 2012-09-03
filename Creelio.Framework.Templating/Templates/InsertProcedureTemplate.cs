@@ -1,6 +1,6 @@
 ﻿namespace Creelio.Framework.Templating.Templates
 {
-    using Creelio.Framework.Core.Data;
+    using Creelio.Framework.Data;
     using System.Collections.Generic;
     using Microsoft.SqlServer.Management.Smo;
 

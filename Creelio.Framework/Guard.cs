@@ -1,8 +1,8 @@
-﻿namespace Creelio.Framework.Core
+﻿namespace Creelio.Framework
 {
     using System;
     using System.Collections.Generic;
-    using Creelio.Framework.Core.Extensions.MaybeMonad;
+    using Creelio.Framework.Extensions;
 
     public class Guard<T>
     {

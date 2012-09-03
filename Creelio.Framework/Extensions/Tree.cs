@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Creelio.Framework.Core.Extensions.Tree
+namespace Creelio.Framework.Extensions
 {
     public static class Tree
     {

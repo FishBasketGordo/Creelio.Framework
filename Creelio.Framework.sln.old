@@ -1,0 +1,76 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Creelio.Framework.Test", "Creelio.Framework.Test\Creelio.Framework.Test.csproj", "{FBFE9F6E-C9F9-4235-B278-9FD12EF4B6EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{888F72CE-822C-4CB8-B118-FD5ADB0370AE}"
+	ProjectSection(SolutionItems) = preProject
+		Creelio.Framework.vsmdi = Creelio.Framework.vsmdi
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Creelio.Framework.Templating", "Creelio.Framework.Templating\Creelio.Framework.Templating.csproj", "{FE55A910-C1DE-46E6-A430-F07EE5E300BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Creelio.Framework.Templating.Sql", "Creelio.Framework.Templating.Sql\Creelio.Framework.Templating.Sql.csproj", "{CD824F74-0F0E-4C4D-B64D-AFCAE5B0C15B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Creelio.Framework.Data", "Creelio.Framework.Data\Creelio.Framework.Data.csproj", "{7F4CB375-7D7A-4821-840D-B08556730F86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Creelio.Framework.Web", "Creelio.Framework.Web\Creelio.Framework.Web.csproj", "{196AF04A-822D-4DDA-90CC-5D722E742C67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Creelio.Framework.WebServices", "Creelio.Framework.WebServices\Creelio.Framework.WebServices.csproj", "{34B6D0CA-E2B4-4973-A581-74FF29871EBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Creelio.Framework.Presentation", "Creelio.Framework.Presentation\Creelio.Framework.Presentation.csproj", "{DDE6517D-5304-4F2B-AACA-02A4AD7FCD4D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Creelio.Framework.Shared", "Creelio.Framework.Shared", "{A473F3F3-D2BD-44D6-AD64-DEEBF2EA5CA9}"
+	ProjectSection(SolutionItems) = preProject
+		Creelio.Framework.Shared\Microsoft.Practices.EnterpriseLibrary.Common.dll = Creelio.Framework.Shared\Microsoft.Practices.EnterpriseLibrary.Common.dll
+		Creelio.Framework.Shared\Microsoft.Practices.EnterpriseLibrary.Data.dll = Creelio.Framework.Shared\Microsoft.Practices.EnterpriseLibrary.Data.dll
+		Creelio.Framework.Shared\Microsoft.Practices.ServiceLocation.dll = Creelio.Framework.Shared\Microsoft.Practices.ServiceLocation.dll
+		Creelio.Framework.Shared\Microsoft.SqlServer.ConnectionInfo.dll = Creelio.Framework.Shared\Microsoft.SqlServer.ConnectionInfo.dll
+		Creelio.Framework.Shared\Microsoft.SqlServer.Management.Sdk.Sfc.dll = Creelio.Framework.Shared\Microsoft.SqlServer.Management.Sdk.Sfc.dll
+		Creelio.Framework.Shared\Microsoft.SqlServer.Smo.dll = Creelio.Framework.Shared\Microsoft.SqlServer.Smo.dll
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Creelio.Framework.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FBFE9F6E-C9F9-4235-B278-9FD12EF4B6EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBFE9F6E-C9F9-4235-B278-9FD12EF4B6EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBFE9F6E-C9F9-4235-B278-9FD12EF4B6EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBFE9F6E-C9F9-4235-B278-9FD12EF4B6EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE55A910-C1DE-46E6-A430-F07EE5E300BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE55A910-C1DE-46E6-A430-F07EE5E300BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE55A910-C1DE-46E6-A430-F07EE5E300BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE55A910-C1DE-46E6-A430-F07EE5E300BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD824F74-0F0E-4C4D-B64D-AFCAE5B0C15B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD824F74-0F0E-4C4D-B64D-AFCAE5B0C15B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD824F74-0F0E-4C4D-B64D-AFCAE5B0C15B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD824F74-0F0E-4C4D-B64D-AFCAE5B0C15B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F4CB375-7D7A-4821-840D-B08556730F86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F4CB375-7D7A-4821-840D-B08556730F86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F4CB375-7D7A-4821-840D-B08556730F86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F4CB375-7D7A-4821-840D-B08556730F86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{196AF04A-822D-4DDA-90CC-5D722E742C67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{196AF04A-822D-4DDA-90CC-5D722E742C67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{196AF04A-822D-4DDA-90CC-5D722E742C67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{196AF04A-822D-4DDA-90CC-5D722E742C67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34B6D0CA-E2B4-4973-A581-74FF29871EBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34B6D0CA-E2B4-4973-A581-74FF29871EBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34B6D0CA-E2B4-4973-A581-74FF29871EBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34B6D0CA-E2B4-4973-A581-74FF29871EBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDE6517D-5304-4F2B-AACA-02A4AD7FCD4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDE6517D-5304-4F2B-AACA-02A4AD7FCD4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDE6517D-5304-4F2B-AACA-02A4AD7FCD4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDE6517D-5304-4F2B-AACA-02A4AD7FCD4D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

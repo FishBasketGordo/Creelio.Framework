@@ -1,9 +1,9 @@
 ﻿namespace Creelio.Framework.Templating.Sql
 {
     using System;
-    using Creelio.Framework.Core;
-    using Creelio.Framework.Core.Extensions;
-    using Creelio.Framework.Core.Extensions.MaybeMonad;
+    using Creelio.Framework;
+    using Creelio.Framework.Extensions;
+    using Creelio.Framework.Extensions;
 
     public abstract class ValueConstraint<T> : Constraint, IColumnBasedConstraint
     {

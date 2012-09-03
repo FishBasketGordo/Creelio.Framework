@@ -2,9 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using Creelio.Framework.Core.Data;
-    using Creelio.Framework.Core.Extensions;
-    using Creelio.Framework.Core.Extensions.MaybeMonad;
+    using Creelio.Framework.Data;
+    using Creelio.Framework.Extensions;
+    using Creelio.Framework.Extensions;
     using Creelio.Framework.Templating.Interfaces;
     using Creelio.Framework.Templating.Templates;
     using Microsoft.SqlServer.Management.Smo;

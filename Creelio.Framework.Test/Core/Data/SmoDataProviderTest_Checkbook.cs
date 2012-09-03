@@ -1,6 +1,6 @@
 ﻿namespace Creelio.Framework.Test.Core.Data
 {
-    using Creelio.Framework.Core.Data;
+    using Creelio.Framework.Data;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
     using Microsoft.SqlServer.Management.Smo;

@@ -6,7 +6,8 @@
 
     public class Guard<T>
     {
-        private List<GuardPredicate<T>> _predicates = null;
+        private Lazy<List<GuardPredicate<T>>> _predicates = 
+            new Lazy<List<GuardPredicate<T>>>(() => new List<GuardPredicate<T>>());
 
         public Guard()
         {
@@ -16,12 +17,7 @@
         {
             get
             {
-                if (_predicates == null)
-                {
-                    _predicates = new List<GuardPredicate<T>>();
-                }
-
-                return _predicates;
+                return _predicates.Value;
             }
         }
 

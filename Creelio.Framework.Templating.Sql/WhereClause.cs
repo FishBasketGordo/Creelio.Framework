@@ -2,9 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Text;
-    using Creelio.Framework.Extensions;
     using Creelio.Framework.Extensions;
 
     public class WhereClause : ICloneable

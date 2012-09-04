@@ -3,7 +3,6 @@
     using System;
     using Creelio.Framework;
     using Creelio.Framework.Extensions;
-    using Creelio.Framework.Extensions;
 
     public abstract class ValueConstraint<T> : Constraint, IColumnBasedConstraint
     {

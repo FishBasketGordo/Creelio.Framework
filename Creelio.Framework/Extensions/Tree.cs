@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Creelio.Framework.Extensions
+﻿namespace Creelio.Framework.Extensions
 {
+    using System;
+    using System.Collections.Generic;
+
     public static class Tree
     {
         public static void Traverse<T>(this T root, Func<T, List<T>> getChildren, Action<T> visitNode)

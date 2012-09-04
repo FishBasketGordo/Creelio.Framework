@@ -1,11 +1,10 @@
 ﻿namespace Creelio.Framework.Test.Core.Data
 {
-    using System.Configuration;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Creelio.Framework.Data;
-    using System;
-    using Microsoft.SqlServer.Management.Smo;
     using System.Collections.Generic;
+    using System.Configuration;
+    using Creelio.Framework.Data;
+    using Microsoft.SqlServer.Management.Smo;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
     public abstract class SmoDataProviderTest

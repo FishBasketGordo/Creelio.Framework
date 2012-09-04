@@ -6,7 +6,6 @@
     using System.ServiceModel;
     using System.ServiceModel.Channels;
     using Creelio.Framework.Extensions;
-    using Creelio.Framework.Extensions;
     using Creelio.Framework.WebServices.Extensions;
 
     public class WebServiceProxy<TServiceContract, TBinding>

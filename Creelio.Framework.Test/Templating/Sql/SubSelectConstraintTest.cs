@@ -1,8 +1,8 @@
 ﻿namespace Creelio.Framework.Test.Templating.Sql
 {
     using System;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Creelio.Framework.Templating.Sql;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
     public class SubSelectConstraintTest : ValueConstraintTest

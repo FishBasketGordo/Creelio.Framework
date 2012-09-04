@@ -1,50 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Creelio.Framework.Templating.Extensions.TextTransformationExtensions;
-using Microsoft.VisualStudio.TextTemplating;
-
-namespace Creelio.Framework.Templating.FormatHelpers
+﻿namespace Creelio.Framework.Templating.FormatHelpers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Creelio.Framework.Templating.Extensions.TextTransformationExtensions;
+    using Microsoft.VisualStudio.TextTemplating;
+
     public class CsFormatHelper : FormatHelper
     {
-        #region Fields
-
         /// <remarks>
         /// The order of the items in this array is important. 
         /// It is used by the method GetLeastRestrictiveModifier. 
         /// 
         /// Do not change it.
         /// </remarks>
-        private static readonly List<string> _accessModifiers = new List<string> 
+        private static readonly List<string> AccessModifiers = new List<string> 
         { 
             "public", "protected internal", "internal", "protected", "private"
         };
-
-        #endregion
-
-        #region Constructors
 
         public CsFormatHelper(TextTransformation textTransformation)
             : base(textTransformation)
         {
         }
-
-        #endregion
-
-        #region Methods
-
-        #region WriteDisclaimer
-
-        protected override IEnumerable<string> FormatDisclaimerLines(IEnumerable<string> disclaimerLines)
-        {
-            return from line in disclaimerLines
-                   select string.Format("// {0}", line);
-        }
-
-        #endregion
-
-        #region WriteRegion
 
         public void BeginWriteRegion()
         {
@@ -55,22 +33,18 @@ namespace Creelio.Framework.Templating.FormatHelpers
         {
             if (string.IsNullOrEmpty(regionName))
             {
-                _tt.WriteLine("#region");
+                TT.WriteLine("#region");
             }
             else
             {
-                _tt.WriteLine("#region {0}", regionName);
+                TT.WriteLine("#region {0}", regionName);
             }
         }
 
         public void EndWriteRegion()
         {
-            _tt.WriteLine("#endregion");
+            TT.WriteLine("#endregion");
         }
-
-        #endregion
-
-        #region WriteClass
 
         public void BeginWriteClass(string className)
         {
@@ -122,7 +96,7 @@ namespace Creelio.Framework.Templating.FormatHelpers
             ProcessEnumerable(ref inheritsFrom);
             ProcessEnumerable(ref genericContraints);
 
-            _tt.Write("{0} class {1}", accessModifier, className);
+            TT.Write("{0} class {1}", accessModifier, className);
             if (inheritsFrom != null)
             {
                 WriteInheritsFrom(inheritsFrom);
@@ -134,40 +108,16 @@ namespace Creelio.Framework.Templating.FormatHelpers
             }
             else
             {
-                _tt.WriteLine();
+                TT.WriteLine();
             }
 
-            _tt.WriteLine("{");
+            TT.WriteLine("{");
         }
 
         public void EndWriteClass()
         {
-            _tt.WriteLine("}");
+            TT.WriteLine("}");
         }
-
-        private void WriteInheritsFrom(IEnumerable<string> inheritsFrom)
-        {
-            var baseList = GetCsv(inheritsFrom, GetProcessedTypeName);
-            _tt.Write(" : {0}", baseList);
-        }
-
-        private void WriteGenericConstraints(IEnumerable<string> genericContraints)
-        {
-            _tt.WriteLine();
-
-            foreach (var genericConstraint in genericContraints)
-            {
-                var processed = GetProcessedGenericConstaint(genericConstraint);
-
-                _tt.PushIndent();
-                _tt.WriteLine(processed);
-                _tt.PopIndent();
-            }
-        }
-
-        #endregion
-
-        #region WriteField
 
         public void WriteField(string fieldName, string typeName)
         {
@@ -204,12 +154,8 @@ namespace Creelio.Framework.Templating.FormatHelpers
                 accessModifier += " const";
             }
 
-            _tt.WriteLine("{0} {1} {2} = {3};", accessModifier, typeName, fieldName, defaultValue);
+            TT.WriteLine("{0} {1} {2} = {3};", accessModifier, typeName, fieldName, defaultValue);
         }
-
-        #endregion
-
-        #region WriteAutoProperty
 
         public void WriteAutoProperty(string propertyName, string typeName)
         {
@@ -232,12 +178,8 @@ namespace Creelio.Framework.Templating.FormatHelpers
             var get = GetPropertyAccessorSpecifier("get", getAccessModifier);
             var set = GetPropertyAccessorSpecifier("set", setAccessModifier);
 
-            _tt.WriteLine("{0} {1} {2} {{ {3}; {4}; }}", primaryAccessModifier, typeName, propertyName, get, set);
+            TT.WriteLine("{0} {1} {2} {{ {3}; {4}; }}", primaryAccessModifier, typeName, propertyName, get, set);
         }
-
-        #endregion
-
-        #region WritePropertyWithField
 
         public void WritePropertyWithField(string propertyName, string typeName)
         {
@@ -259,7 +201,8 @@ namespace Creelio.Framework.Templating.FormatHelpers
             ProcessPropertyName(ref propertyName);
             ProcessTypeName(ref typeName, ref defaultValue);
 
-            string primaryAccessModifier; bool isStatic;
+            string primaryAccessModifier; 
+            bool isStatic;
             ProcessPropertyAccessModifiers(ref getAccessModifier, ref setAccessModifier, out primaryAccessModifier, out isStatic);
 
             var fieldName = string.Format("_field_{0}", propertyName);
@@ -267,29 +210,25 @@ namespace Creelio.Framework.Templating.FormatHelpers
             var get = GetPropertyAccessorSpecifier("get", getAccessModifier);
             var set = GetPropertyAccessorSpecifier("set", setAccessModifier);
 
-            _tt.WriteLine("{0} {1} {2} = {3};", fieldAccessModifier, typeName, fieldName, defaultValue);
-            _tt.WriteLine("{0} {1} {2}", primaryAccessModifier, typeName, propertyName);
-            _tt.WriteLine("{");
-            _tt.PushIndent(1);
-            _tt.WriteLine(get);
-            _tt.WriteLine("{");
-            _tt.PushIndent(1);
-            _tt.WriteLine("return {0};", fieldName);
-            _tt.PopIndent();
-            _tt.WriteLine("}");
-            _tt.WriteLine(set);
-            _tt.WriteLine("{");
-            _tt.PushIndent(1);
-            _tt.WriteLine("{0} = value;", fieldName);
-            _tt.PopIndent();
-            _tt.WriteLine("}");
-            _tt.PopIndent();
-            _tt.WriteLine("}");
+            TT.WriteLine("{0} {1} {2} = {3};", fieldAccessModifier, typeName, fieldName, defaultValue);
+            TT.WriteLine("{0} {1} {2}", primaryAccessModifier, typeName, propertyName);
+            TT.WriteLine("{");
+            TT.PushIndent(1);
+            TT.WriteLine(get);
+            TT.WriteLine("{");
+            TT.PushIndent(1);
+            TT.WriteLine("return {0};", fieldName);
+            TT.PopIndent();
+            TT.WriteLine("}");
+            TT.WriteLine(set);
+            TT.WriteLine("{");
+            TT.PushIndent(1);
+            TT.WriteLine("{0} = value;", fieldName);
+            TT.PopIndent();
+            TT.WriteLine("}");
+            TT.PopIndent();
+            TT.WriteLine("}");
         }
-
-        #endregion
-
-        #region WriteLazyLoadProperty
 
         public void WriteLazyLoadProperty(string propertyName, string typeName)
         {
@@ -313,30 +252,26 @@ namespace Creelio.Framework.Templating.FormatHelpers
             var fieldName = string.Format("_field_{0}", propertyName);
             var fieldAccessModifier = isStatic ? "private static" : "private";
 
-            _tt.WriteLine("{0} {1} {2} = null;", fieldAccessModifier, typeName, fieldName);
-            _tt.WriteLine("{0} {1} {2}", accessModifier, typeName, propertyName);
-            _tt.WriteLine("{");
-            _tt.PushIndent(1);
-            _tt.WriteLine("get");
-            _tt.WriteLine("{");
-            _tt.PushIndent(1);
-            _tt.WriteLine("if ({0} == null)", fieldName);
-            _tt.WriteLine("{");
-            _tt.PushIndent(1);
-            _tt.WriteLine("{0} = {1};", fieldName, defaultValue);
-            _tt.PopIndent();
-            _tt.WriteLine("}");
-            _tt.WriteLine("");
-            _tt.WriteLine("return {0};", fieldName);
-            _tt.PopIndent();
-            _tt.WriteLine("}");
-            _tt.PopIndent();
-            _tt.WriteLine("}");
+            TT.WriteLine("{0} {1} {2} = null;", fieldAccessModifier, typeName, fieldName);
+            TT.WriteLine("{0} {1} {2}", accessModifier, typeName, propertyName);
+            TT.WriteLine("{");
+            TT.PushIndent(1);
+            TT.WriteLine("get");
+            TT.WriteLine("{");
+            TT.PushIndent(1);
+            TT.WriteLine("if ({0} == null)", fieldName);
+            TT.WriteLine("{");
+            TT.PushIndent(1);
+            TT.WriteLine("{0} = {1};", fieldName, defaultValue);
+            TT.PopIndent();
+            TT.WriteLine("}");
+            TT.WriteLine(string.Empty);
+            TT.WriteLine("return {0};", fieldName);
+            TT.PopIndent();
+            TT.WriteLine("}");
+            TT.PopIndent();
+            TT.WriteLine("}");
         }
-
-        #endregion
-
-        #region WriteConstructor
 
         public void BeginWriteConstructor(string className)
         {
@@ -361,34 +296,56 @@ namespace Creelio.Framework.Templating.FormatHelpers
             var formattedParameters = GetFormattedEnumerable(parameters, GetFormattedParameter);
             var formattedArguments = GetFormattedEnumerable(baseArguments, GetFormattedArgument);
 
-            _tt.Write("{0} {1}(", accessModifier, className);
+            TT.Write("{0} {1}(", accessModifier, className);
 
             if (formattedParameters != null)
             {
-                _tt.Write(GetCsv(formattedParameters));
+                TT.Write(GetCsv(formattedParameters));
             }
 
-            _tt.WriteLine(")");
+            TT.WriteLine(")");
 
             if (formattedArguments != null)
             {
-                _tt.PushIndent();
-                _tt.Write(": base({0})", GetCsv(formattedArguments));
-                _tt.PopIndent();
-                _tt.WriteLine();
+                TT.PushIndent();
+                TT.Write(": base({0})", GetCsv(formattedArguments));
+                TT.PopIndent();
+                TT.WriteLine();
             }
 
-            _tt.WriteLine("{");
+            TT.WriteLine("{");
         }
 
         public void EndWriteConstructor()
         {
-            _tt.WriteLine("}");
+            TT.WriteLine("}");
         }
 
-        #endregion
+        protected override IEnumerable<string> FormatDisclaimerLines(IEnumerable<string> disclaimerLines)
+        {
+            return from line in disclaimerLines
+                   select string.Format("// {0}", line);
+        }
 
-        #region Helpers
+        private void WriteInheritsFrom(IEnumerable<string> inheritsFrom)
+        {
+            var baseList = GetCsv(inheritsFrom, GetProcessedTypeName);
+            TT.Write(" : {0}", baseList);
+        }
+
+        private void WriteGenericConstraints(IEnumerable<string> genericContraints)
+        {
+            TT.WriteLine();
+
+            foreach (var genericConstraint in genericContraints)
+            {
+                var processed = GetProcessedGenericConstaint(genericConstraint);
+
+                TT.PushIndent();
+                TT.WriteLine(processed);
+                TT.PopIndent();
+            }
+        }
 
         private void ProcessClassName(ref string className)
         {
@@ -479,16 +436,14 @@ namespace Creelio.Framework.Templating.FormatHelpers
 
             accessModifier = accessModifier.Trim();
 
-            if (!_accessModifiers.Contains(accessModifier))
+            if (!AccessModifiers.Contains(accessModifier))
             {
                 throw new ArgumentException(
                     string.Format(
                         "The access modifier '{0}' is invalid. Valid access modifiers are: {1}.",
                         accessModifier,
-                        GetCsv(_accessModifiers)
-                    ),
-                    "accessModifier"
-                );
+                        GetCsv(AccessModifiers)),
+                    "accessModifier");
             }
         }
 
@@ -610,8 +565,8 @@ namespace Creelio.Framework.Templating.FormatHelpers
             }
             else
             {
-                int getIndex = _accessModifiers.IndexOf(getAccessModifier);
-                int setIndex = _accessModifiers.IndexOf(setAccessModifier);
+                int getIndex = AccessModifiers.IndexOf(getAccessModifier);
+                int setIndex = AccessModifiers.IndexOf(setAccessModifier);
 
                 if (getIndex < setIndex)
                 {
@@ -639,9 +594,7 @@ namespace Creelio.Framework.Templating.FormatHelpers
                 (a, b) => string.Format(
                     "{0}, {1}",
                     processString(a),
-                    processString(b)
-                )
-            );
+                    processString(b)));
         }
 
         private IEnumerable<string> GetFormattedEnumerable<T>(List<T> list, Func<T, string> formatter) where T : class
@@ -669,8 +622,7 @@ namespace Creelio.Framework.Templating.FormatHelpers
                 "{0} {1} {2}",
                 parameter.Modifier,
                 GetProcessedTypeName(parameter.TypeName),
-                GetProcessedIdentifier(parameter.Name, "Parameter name")
-            ).Trim();
+                GetProcessedIdentifier(parameter.Name, "Parameter name")).Trim();
         }
 
         private string GetFormattedArgument(CsArgument argument)
@@ -678,8 +630,7 @@ namespace Creelio.Framework.Templating.FormatHelpers
             return string.Format(
                 "{0} {1}",
                 argument.Modifier,
-                GetProcessedIdentifier(argument.Name, "Argument name")
-            ).Trim();
+                GetProcessedIdentifier(argument.Name, "Argument name")).Trim();
         }
 
         private bool TryGetType(string typeName, out Type type)
@@ -694,7 +645,10 @@ namespace Creelio.Framework.Templating.FormatHelpers
                     return true;
                 }
             }
-            catch { /* Intentionally consume */ }
+            catch 
+            { 
+                /* Intentionally consume */ 
+            }
 
             if (string.Compare(typeName, "int", true) == 0)
             {
@@ -734,9 +688,5 @@ namespace Creelio.Framework.Templating.FormatHelpers
         {
             return enumerable != null && enumerable.Any(item => item != null);
         }
-
-        #endregion
-
-        #endregion
     }
 }

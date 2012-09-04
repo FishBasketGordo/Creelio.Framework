@@ -1,8 +1,8 @@
 ﻿namespace Creelio.Framework.Templating.Sql
 {
     using System;
-    using Creelio.Framework.Extensions;
     using Creelio.Framework;
+    using Creelio.Framework.Extensions;
 
     public class ColumnConstraint : EqualityConstraint<Column>
     {

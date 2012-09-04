@@ -1,30 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using Creelio.Framework.Extensions;
-using Creelio.Framework.Templating.Extensions.TextTransformationExtensions;
-using Microsoft.VisualStudio.TextTemplating;
-
-namespace Creelio.Framework.Templating.FormatHelpers
+﻿namespace Creelio.Framework.Templating.FormatHelpers
 {
+    using System;
+    using System.Collections.Generic;
+    using Creelio.Framework.Extensions;
+    using Creelio.Framework.Templating.Extensions.TextTransformationExtensions;
+    using Microsoft.VisualStudio.TextTemplating;
+
     public abstract class FormatHelper
     {
-        #region Fields
-
-        protected TextTransformation _tt = null;
-
-        #endregion
-
-        #region Constructors
-
         protected FormatHelper(TextTransformation textTransformation)
         {
             textTransformation.ThrowIfNull(() => new ArgumentNullException("textTransformation"));
-            _tt = textTransformation;
+            TT = textTransformation;
         }
 
-        #endregion
-
-        #region Methods
+        protected TextTransformation TT { get; private set; }
 
         public void WriteDisclaimer(ITextTemplatingEngineHost host)
         {
@@ -44,7 +34,7 @@ namespace Creelio.Framework.Templating.FormatHelpers
 
             var formattedLines = FormatDisclaimerLines(lines);
 
-            _tt.WriteLines(formattedLines);
+            TT.WriteLines(formattedLines);
         }
 
         protected abstract IEnumerable<string> FormatDisclaimerLines(IEnumerable<string> disclaimerLines);
@@ -56,9 +46,7 @@ namespace Creelio.Framework.Templating.FormatHelpers
                 throw new ArgumentNullException(
                     string.Format(
                         "{0} cannot be null or empty.",
-                        idType
-                    )
-                );
+                        idType));
             }
 
             id = id.Trim();
@@ -68,9 +56,7 @@ namespace Creelio.Framework.Templating.FormatHelpers
                 throw new ArgumentException(
                     string.Format(
                         "{0} must be a valid identifier.",
-                        idType
-                    )
-                );
+                        idType));
             }
         }
 
@@ -85,7 +71,5 @@ namespace Creelio.Framework.Templating.FormatHelpers
                 ProcessIdentifier(ref id, idType);
             }
         }
-
-        #endregion
     }
 }

@@ -6,7 +6,6 @@
     using System.Linq;
     using Creelio.Framework.Data;
     using Creelio.Framework.Extensions;
-    using Creelio.Framework.Extensions;
 
     public sealed class Column : IComparable<Column>
     {

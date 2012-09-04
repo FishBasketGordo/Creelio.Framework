@@ -1,16 +1,14 @@
 ﻿namespace Creelio.Framework.Test.Templating.Sql
 {
     using System;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Creelio.Framework.Templating.Sql;
     using System.Collections.Generic;
+    using Creelio.Framework.Templating.Sql;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
     public class ListConstraintTest : ValueConstraintTest
     {
         private IEnumerable<int> _intList = new List<int> { 0, 1, 2 };
-
-        //private IEnumerable<string> _stringList = new List<string> { "a", "b", "c" };
 
         [TestMethod]
         public override void ShouldEqualSelf()

@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using Creelio.Framework.Data;
     using Creelio.Framework.Extensions;
-    using Creelio.Framework.Extensions;
     using Creelio.Framework.Templating.Interfaces;
     using Creelio.Framework.Templating.Templates;
     using Microsoft.SqlServer.Management.Smo;

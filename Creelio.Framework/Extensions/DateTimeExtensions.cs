@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Creelio.Framework.Extensions
+﻿namespace Creelio.Framework.Extensions
 {
+    using System;
+
     public static class DateTimeExtensions
     {
         public static DateTime ChangeTime(this DateTime dt, int hour, int minute, int second)

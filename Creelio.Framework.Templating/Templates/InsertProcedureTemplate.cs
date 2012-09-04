@@ -1,8 +1,6 @@
 ﻿namespace Creelio.Framework.Templating.Templates
 {
     using Creelio.Framework.Data;
-    using System.Collections.Generic;
-    using Microsoft.SqlServer.Management.Smo;
 
     public class InsertProcedureTemplate : ProcedureTemplate
     {

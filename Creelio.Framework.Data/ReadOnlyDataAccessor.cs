@@ -1,29 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using Creelio.Framework.Data.Interfaces;
-using Creelio.Framework.Extensions;
-
-namespace Creelio.Framework.Data
+﻿namespace Creelio.Framework.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using Creelio.Framework.Data.Interfaces;
+    using Creelio.Framework.Extensions;
+
     public class ReadOnlyDataAccessor<T> : IDataSelector<T> where T : new()
     {
-        #region Properties
-
-        private IDataAccessor<T> Accessor { get; set; }
-
-        #endregion
-
-        #region Constructors
-
         public ReadOnlyDataAccessor(IDataAccessor<T> accessor)
         {
             accessor.ThrowIfNull(() => new ArgumentNullException("accessor"));
             Accessor = accessor;
         }
 
-        #endregion
-
-        #region Methods
+        private IDataAccessor<T> Accessor { get; set; }
 
         public List<T> Select()
         {
@@ -49,7 +39,5 @@ namespace Creelio.Framework.Data
         {
             return Accessor.Count(match);
         }
-
-        #endregion
     }
 }

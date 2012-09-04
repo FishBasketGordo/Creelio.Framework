@@ -2,17 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Reflection;
-    using Creelio.Framework.Extensions;
     using Creelio.Framework.Extensions;
 
     public class InequalityConstraint<T> : ValueConstraint<T>
     {
-        private static readonly Dictionary<InequalityType, string> _operatorDictionary = null;
+        private static readonly Dictionary<InequalityType, string> OperatorDictionary = null;
 
         static InequalityConstraint()
         {
-            _operatorDictionary = new Dictionary<InequalityType, string>
+            OperatorDictionary = new Dictionary<InequalityType, string>
             {
                 { InequalityType.LessThan, "<" },
                 { InequalityType.GreaterThan, ">" },
@@ -43,7 +41,7 @@
 
         protected override string GetOperatorForValue(T value)
         {
-            var op = _operatorDictionary.GetOrReturnDefault(InequalityType);
+            var op = OperatorDictionary.GetOrReturnDefault(InequalityType);
             op.ThrowIfNull(_ => new ArgumentNullException(string.Format("Unrecognized inequality type: {0}.", InequalityType)));
 
             return op;

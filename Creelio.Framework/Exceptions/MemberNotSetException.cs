@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace Creelio.Framework.Exceptions
+﻿namespace Creelio.Framework.Exceptions
 {
+    using System;
+
     public class MemberNotSetException : Exception
     {
-        #region Constructors
-        
         public MemberNotSetException(string propertyName)
             : this(propertyName, null, null)
         {            
@@ -21,8 +19,7 @@ namespace Creelio.Framework.Exceptions
                 string.IsNullOrEmpty(propertyName)
                     ? string.Format("One or more required members do not have a value. {0}", message)
                     : string.Format("Must set a value for member \"{0}\". {1}", propertyName, message),
-                innerException
-            )
+                innerException)
         {
             PropertyName = propertyName;
             Data.Add("PropertyName", propertyName);
@@ -33,12 +30,6 @@ namespace Creelio.Framework.Exceptions
         {
         }
 
-        #endregion
-
-        #region Properties
-
         public string PropertyName { get; private set; }
-
-        #endregion
     }
 }

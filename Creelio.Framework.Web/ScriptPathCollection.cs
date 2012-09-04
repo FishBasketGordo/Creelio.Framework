@@ -8,9 +8,9 @@
     [Serializable]
     public class ScriptPathCollection : ICollection<ScriptPath>
     {
-        private static readonly object _baseSync = new object();
+        private static readonly object BaseSync = new object();
 
-        private static readonly object _pageSpecificSync = new object();
+        private static readonly object PageSpecificSync = new object();
 
         private static List<ScriptPath> _baseScripts = null;
 
@@ -20,7 +20,7 @@
         {
             get
             {
-                lock (_baseSync)
+                lock (BaseSync)
                 {
                     return BaseScripts.Count;
                 }
@@ -74,7 +74,7 @@
 
             var key = GetPageKey(uri);
 
-            lock (_pageSpecificSync)
+            lock (PageSpecificSync)
             {
                 var pageScripts = PageSpecificScripts.GetOrAddDefault(key);
                 pageScripts.DoIf(s => !BaseScripts.Contains(path), s => s.Add(path));
@@ -85,7 +85,7 @@
         {
             var key = GetPageKey(uri);
 
-            lock (_pageSpecificSync)
+            lock (PageSpecificSync)
             {
                 PageSpecificScripts.GetOrReturnDefault(key).Clear();
             }
@@ -95,7 +95,7 @@
         {
             var key = GetPageKey(uri);
 
-            lock (_pageSpecificSync)
+            lock (PageSpecificSync)
             {
                 return Contains(item) || PageSpecificScripts.GetOrReturnDefault(key).Contains(item);
             }
@@ -110,7 +110,7 @@
         {
             var key = GetPageKey(uri);
 
-            lock (_pageSpecificSync)
+            lock (PageSpecificSync)
             {
                 return Remove(item) || PageSpecificScripts.GetOrReturnDefault(key).Remove(item);
             }
@@ -120,7 +120,7 @@
         {
             var key = GetPageKey(uri);
 
-            lock (_baseSync)
+            lock (BaseSync)
             {
                 foreach (var item in BaseScripts)
                 {
@@ -128,7 +128,7 @@
                 }
             }
 
-            lock (_pageSpecificSync)
+            lock (PageSpecificSync)
             {
                 foreach (var item in PageSpecificScripts.GetOrReturnDefault(key))
                 {
@@ -144,7 +144,7 @@
 
         public IEnumerable<ScriptPath> GetBaseScripts()
         {
-            lock (_baseSync)
+            lock (BaseSync)
             {
                 return BaseScripts.Skip(0);
             }
@@ -154,7 +154,7 @@
         {
             var key = GetPageKey(uri);
 
-            lock (_pageSpecificSync)
+            lock (PageSpecificSync)
             {
                 return PageSpecificScripts.GetOrReturnDefault(key).Skip(0);
             }
@@ -164,7 +164,7 @@
         {
             item.ThrowIfNull(() => new ArgumentNullException("path"));
 
-            lock (_baseSync)
+            lock (BaseSync)
             {
                 BaseScripts.Add(item);
             }
@@ -172,12 +172,12 @@
 
         public void Clear()
         {
-            lock (_baseSync)
+            lock (BaseSync)
             {
                 BaseScripts.Clear();
             }
 
-            lock (_pageSpecificSync)
+            lock (PageSpecificSync)
             {
                 PageSpecificScripts.Clear();
             }
@@ -185,7 +185,7 @@
 
         public bool Contains(ScriptPath item)
         {
-            lock (_baseSync)
+            lock (BaseSync)
             {
                 return BaseScripts.Contains(item);
             }
@@ -193,7 +193,7 @@
 
         public void CopyTo(ScriptPath[] array, int arrayIndex)
         {
-            lock (_baseSync)
+            lock (BaseSync)
             {
                 BaseScripts.CopyTo(array, arrayIndex);
             }
@@ -201,7 +201,7 @@
 
         public bool Remove(ScriptPath item)
         {
-            lock (_baseSync)
+            lock (BaseSync)
             {
                 return BaseScripts.Remove(item);
             }

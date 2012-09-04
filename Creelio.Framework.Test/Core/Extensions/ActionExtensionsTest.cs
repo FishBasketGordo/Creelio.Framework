@@ -8,7 +8,6 @@
     [TestClass]
     public class ActionExtensionsTest
     {
-
         [TestMethod]
         public void ApplyWithOneArgShouldBeEqualToManualActionCall()
         {

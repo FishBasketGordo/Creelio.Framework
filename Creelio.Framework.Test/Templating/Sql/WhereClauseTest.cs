@@ -51,11 +51,9 @@
 
                 var result = whereClause.ToString();
 
-                var expected = string.Format(
-                    "WHERE ({0})",
-                    test.Expected.Replace(string.Format("[{0}].", columnBased.Column.Table.DatabaseName), string.Empty)
-                                 .Replace(string.Format("[{0}].", columnBased.Column.Table.SchemaName), string.Empty)
-                                 .Replace(string.Format("[{0}]", columnBased.Column.Table.TableName), alias));
+                var replaced = GetAliasedTableName(test, columnBased, alias);
+
+                var expected = string.Format("WHERE ({0})", replaced);
 
                 Assert.AreEqual(expected, result);
             } 
@@ -97,14 +95,14 @@
 
                     var result = whereClause.ToString();
 
+                    var replaced1 = GetAliasedTableName(test1, columnBased1, alias1);
+
+                    var replaced2 = GetAliasedTableName(test2, columnBased2, alias2);
+
                     var expected = string.Format(
                         "WHERE ({0}) AND ({1})",
-                        test1.Expected.Replace(string.Format("[{0}].", columnBased1.Column.Table.DatabaseName), string.Empty)
-                                      .Replace(string.Format("[{0}].", columnBased1.Column.Table.SchemaName), string.Empty)
-                                      .Replace(string.Format("[{0}]", columnBased1.Column.Table.TableName), alias1),
-                        test2.Expected.Replace(string.Format("[{0}].", columnBased2.Column.Table.DatabaseName), string.Empty)
-                                      .Replace(string.Format("[{0}].", columnBased2.Column.Table.SchemaName), string.Empty)
-                                      .Replace(string.Format("[{0}]", columnBased2.Column.Table.TableName), alias2));
+                        replaced1,
+                        replaced2);
 
                     Assert.AreEqual(expected, result);
                 }
@@ -129,6 +127,23 @@
                         result);
                 }
             }
+        }
+
+        private static string GetAliasedTableName(TestConstraints._TestConstraint test, IColumnBasedConstraint columnBased, string alias)
+        {
+            var replaced = test.Expected.Replace(
+                string.Format("[{0}].", columnBased.Column.Table.DatabaseName),
+                string.Empty);
+
+            replaced = replaced.Replace(
+                string.Format("[{0}].", columnBased.Column.Table.SchemaName),
+                string.Empty);
+
+            replaced = replaced.Replace(
+                string.Format("[{0}]", columnBased.Column.Table.TableName),
+                alias);
+
+            return replaced;
         }
     }
 }

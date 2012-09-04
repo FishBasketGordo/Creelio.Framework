@@ -1,7 +1,7 @@
 ﻿namespace Creelio.Framework.Templating.Sql
 {
-    using Creelio.Framework;
     using System;
+    using Creelio.Framework;
 
     public class SubSelectConstraint : ValueConstraint<string>
     {

@@ -1,7 +1,7 @@
 ﻿namespace Creelio.Framework.Test.Templating.Sql
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Creelio.Framework.Templating.Sql;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     public abstract class ConstraintTest
     {

@@ -9,6 +9,10 @@
     [TestClass]
     public class WebServiceProxyTests
     {
+        private interface ITestContract
+        {
+        }
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void CannotCreateWithNullUrl()
@@ -85,10 +89,6 @@
 
             proxy.SetServiceAddress(ExecutionEnvironment.Development, null);
             Assert.Fail("SetServiceAddress method call should have failed.");
-        }
-
-        private interface ITestContract
-        {
         }
     }
 }

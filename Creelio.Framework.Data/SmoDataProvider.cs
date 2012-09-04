@@ -5,7 +5,6 @@
     using System.Data.SqlClient;
     using System.Linq;
     using Creelio.Framework.Extensions;
-    using Creelio.Framework.Extensions;
     using Microsoft.SqlServer.Management.Common;
     using Microsoft.SqlServer.Management.Smo;
 

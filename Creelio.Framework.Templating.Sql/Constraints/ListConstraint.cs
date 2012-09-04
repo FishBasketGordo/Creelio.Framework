@@ -2,10 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using Creelio.Framework.Extensions;
-    using Creelio.Framework.Extensions;
     using Creelio.Framework;
+    using Creelio.Framework.Extensions;
 
     public class ListConstraint<TItem> : ValueConstraint<IEnumerable<TItem>>
     {

@@ -57,6 +57,22 @@
             }
         }
 
+        public int Count
+        {
+            get
+            {
+                return ChildrenInternal.Count;
+            }
+        }
+
+        public bool IsReadOnly
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         protected List<NavigationItem> ChildrenInternal
         {
             get
@@ -72,22 +88,6 @@
             set
             {
                 _childrenInternal = value;
-            }
-        }
-
-        public int Count
-        {
-            get
-            {
-                return ChildrenInternal.Count;
-            }
-        }
-
-        public bool IsReadOnly
-        {
-            get
-            {
-                return false;
             }
         }
 

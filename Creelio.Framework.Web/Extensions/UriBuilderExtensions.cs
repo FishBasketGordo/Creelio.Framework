@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using Creelio.Framework.Extensions;
-    using Creelio.Framework.Extensions;
 
     public static class UriBuilderExtensions
     {

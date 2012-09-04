@@ -1,7 +1,7 @@
 ﻿namespace Creelio.Framework.Test.Templating.Sql
 {
-    using Creelio.Framework.Templating.Sql;
     using System.Collections.Generic;
+    using Creelio.Framework.Templating.Sql;
 
     internal static class TestColumns
     {

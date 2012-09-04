@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-
-namespace Creelio.Framework.Web.Extensions
+﻿namespace Creelio.Framework.Web.Extensions
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.UI;
+    using System.Web.UI.HtmlControls;
+    using Creelio.Framework.Extensions;
+
     public static class ControlExtensions
     {
         public static void IncludeScriptInHead(this Control ctrl, string url)
@@ -24,11 +25,13 @@ namespace Creelio.Framework.Web.Extensions
 
         private static void Validate(Control ctrl, string url)
         {
-            if (ctrl == null || ctrl.Page == null || ctrl.Page.Header == null || ctrl.Page.Header.Controls == null)
-                throw new InvalidOperationException("Cannot execute script include. Page components are not initialized.");
+            ctrl.With(c => c.Page)
+                .With(p => p.Header)
+                .With(h => h.Controls)
+                .ThrowIfNull(_ => new InvalidOperationException(
+                    "Cannot execute script include. Page components are not initialized."));
 
-            if (string.IsNullOrEmpty(url))
-                throw new ArgumentNullException("url");
+            url.ThrowIfNullOrWhiteSpace(_ => new ArgumentNullException("url"));
         }
 
         private static bool NeedToInclude(HtmlHead headTag, string url, out int addAtIndex)
@@ -36,8 +39,7 @@ namespace Creelio.Framework.Web.Extensions
             IEnumerable<HtmlGenericControl> headControls = headTag.Controls.OfType<HtmlGenericControl>();
 
             bool needToInclude = !headControls.Any<HtmlGenericControl>(
-                hgc => hgc.TagName == "script" && hgc.Attributes["src"] == url
-                );
+                hgc => hgc.TagName == "script" && hgc.Attributes["src"] == url);
 
             // Insert after the last inserted <script> control to preserve dependencies.
             addAtIndex = 0;

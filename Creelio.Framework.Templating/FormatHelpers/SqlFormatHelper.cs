@@ -38,8 +38,8 @@
         {
             ProcessIdentifier(ref databaseName, "Database name");
 
-            _tt.WriteLine("USE [{0}]", databaseName);
-            _tt.WriteLine("GO");
+            TT.WriteLine("USE [{0}]", databaseName);
+            TT.WriteLine("GO");
         }
 
         public void BeginWriteStoredProcedure(string sprocName)
@@ -64,13 +64,13 @@
 
             ProcessIdentifier(ref sprocName, "Stored procedure name");
 
-            _tt.WriteLine("{0} PROCEDURE {1}", writeAlter ? "ALTER" : "CREATE", sprocName);
+            TT.WriteLine("{0} PROCEDURE {1}", writeAlter ? "ALTER" : "CREATE", sprocName);
 
             if (parameters != null && parameters.Count() > 0)
             {
-                _tt.WriteLine("(");
-                _tt.PushIndent();
-                _tt.WriteLines(
+                TT.WriteLine("(");
+                TT.PushIndent();
+                TT.WriteLines(
                     from p in parameters
                     select string.Format(
                         "@{0} {1} {2}",
@@ -79,17 +79,17 @@
                         defaultParamsToNull ? "= NULL" : string.Empty), 
                     l => string.Format(",{0}", l), 
                     l => string.Format(" {0}", l));
-                _tt.PopIndent();
-                _tt.WriteLine(")");
+                TT.PopIndent();
+                TT.WriteLine(")");
             }
 
-            _tt.WriteLine("AS");
-            _tt.WriteLine("BEGIN");
+            TT.WriteLine("AS");
+            TT.WriteLine("BEGIN");
         }
 
         public void EndWriteStoredProcedure()
         {
-            _tt.WriteLine("END");
+            TT.WriteLine("END");
         }
 
         public void WriteDeleteStatement(Table table)
@@ -104,7 +104,7 @@
 
         public void WriteDeleteStatement(Table table, IEnumerable<Column> parameters, bool overloaded)
         {
-            _tt.WriteLine("DELETE FROM [{0}].[{1}]", table.Owner, table.Name);
+            TT.WriteLine("DELETE FROM [{0}].[{1}]", table.Owner, table.Name);
             WriteWhereClause(parameters, overloaded);
         }
 
@@ -121,7 +121,7 @@
                                       ? (Func<Column, string>)ToOverloadedWhereClauseParameter
                                       : (Func<Column, string>)ToWhereClauseParameter;
 
-                _tt.WriteLines(parameters, l => string.Format("  AND ({0})", parameterToString(l)), l => string.Format("WHERE ({0})", parameterToString(l)));
+                TT.WriteLines(parameters, l => string.Format("  AND ({0})", parameterToString(l)), l => string.Format("WHERE ({0})", parameterToString(l)));
             }
         }
 
@@ -135,11 +135,11 @@
             ProcessVarName(ref varName);
             ProcessSqlDataType(ref varType, ref defaultValue);
 
-            _tt.WriteLine("DECLARE {0} {1}", varName, varType);
+            TT.WriteLine("DECLARE {0} {1}", varName, varType);
 
             if (defaultValue != null)
             {
-                _tt.WriteLine("SET {0} = {1}", varName, defaultValue);
+                TT.WriteLine("SET {0} = {1}", varName, defaultValue);
             }
         }
 

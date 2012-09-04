@@ -6,11 +6,11 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Web;
     using System.Web.UI;
     using System.Web.UI.WebControls;
     using Creelio.Framework.Extensions;
     using Creelio.Framework.Interfaces;
-    using System.Web;
 
     public static class ViewUtility
     {
@@ -65,8 +65,12 @@
             listView.Controls.Add(template);
         }
 
-        private static string RenderControlInternal(Page page, Control ctrl, bool populateFromQueryString,
-            out IServiceMetadata metadata, out IPagingDataProvider pagingData)
+        private static string RenderControlInternal(
+            Page page, 
+            Control ctrl, 
+            bool populateFromQueryString,
+            out IServiceMetadata metadata, 
+            out IPagingDataProvider pagingData)
         {
             if (populateFromQueryString)
             {
@@ -136,12 +140,12 @@
                 {
                     if (member is PropertyInfo)
                     {
-                        PropertyInfo property = (member as PropertyInfo);
+                        PropertyInfo property = member as PropertyInfo;
                         property.SetValue(ctrl, ConvertValue(qs[key], property.PropertyType), null);
                     }
                     else if (member is FieldInfo)
                     {
-                        FieldInfo field = (member as FieldInfo);
+                        FieldInfo field = member as FieldInfo;
                         field.SetValue(ctrl, ConvertValue(qs[key], field.FieldType));
                     }
                 }

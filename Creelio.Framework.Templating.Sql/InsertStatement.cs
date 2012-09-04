@@ -1,11 +1,9 @@
 ﻿namespace Creelio.Framework.Templating.Sql
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
     using Creelio.Framework.Extensions;
-    using Creelio.Framework.Extensions;
-    
+
     public class InsertStatement : SqlStatement
     {
         private Table _table = null;
@@ -79,8 +77,6 @@
 
                 sb.AppendFormat("INSERT INTO {0}", Table.FullyQualifiedTableName);
                 sb.AppendFormat(prefixFormat, "(");
-
-
 
                 sb.AppendLine(")");
 

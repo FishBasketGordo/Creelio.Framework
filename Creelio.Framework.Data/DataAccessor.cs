@@ -8,8 +8,6 @@
     using System.Linq;
     using System.Reflection;
     using Creelio.Framework.Data.Interfaces;
-    using Creelio.Framework.Data.Model;
-    using Creelio.Framework.Extensions;
     using Creelio.Framework.Extensions;
     using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
     using Microsoft.Practices.EnterpriseLibrary.Data;
@@ -33,13 +31,13 @@
 
             Table = table ?? typeof(T).Name;
             Database = EnterpriseLibraryContainer.Current.GetInstance<SqlDatabase>(connectionName);
-            DatabaseInfo = new InformationSchema(Database.ConnectionString);
+            ////DatabaseInfo = new InformationSchema(Database.ConnectionString);
             FormatStoredProcedureName = formatSPName ?? ((tbl, action) => string.Format("dbo.{0}_{1}", tbl, action));
         }
 
         private Database Database { get; set; }
 
-        private InformationSchema DatabaseInfo { get; set; }
+        ////private InformationSchema DatabaseInfo { get; set; }
 
         private string Table { get; set; }
 
@@ -263,8 +261,11 @@
 
         private IEnumerable<DataRow> GetPrimaryKeyDataRows()
         {
-            var dataRows = DatabaseInfo.PrimaryKeyData.Rows.ToList<DataRow>().Where(r => r["TABLE_NAME"].ToString() == Table);
-            return dataRows;
+            ////var dataRows = DatabaseInfo.PrimaryKeyData.Rows.ToList<DataRow>().Where(r => r["TABLE_NAME"].ToString() == Table);
+            ////return dataRows;
+
+            // TODO
+            throw new NotImplementedException();
         }
 
         private object GetDefault(Type type)

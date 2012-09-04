@@ -44,8 +44,8 @@
             var kvpStrings = from kvp in dictionary
                              select string.Format(
                                  "{0}={1}",
-                                 /*HttpUtility.UrlEncode(*/keyToString(kvp.Key)/*)*/,
-                                 /*HttpUtility.UrlEncode(*/valueToString(kvp.Value)/*)*/);
+                                 keyToString(kvp.Key),
+                                 valueToString(kvp.Value));
 
             sb.Append(kvpStrings.Aggregate((s1, s2) => string.Format("{0}&{1}", s1, s2)));
 

@@ -7,8 +7,6 @@
     [TestClass]
     public class IComparableExtensionsTests
     {
-        #region CompareTo
-
         [TestMethod]
         [ExpectedException(typeof(NullReferenceException))]
         public void CompareTo_NullExtensionObject_Throws()
@@ -322,10 +320,6 @@
             comparable.CompareToProperties(other, "NonComparable.InnerNonComparable");
         }
 
-        #endregion
-
-        #region GreaterThan
-
         [TestMethod]
         public void GreaterThan_Ints_True()
         {
@@ -385,11 +379,7 @@
             var result = comparable.IsGreaterThan(other);
             Assert.IsFalse(result);
         }
-
-        #endregion
-
-        #region GreaterThanOrEqualTo
-
+        
         [TestMethod]
         public void GreaterThanOrEqualTo_Ints_True()
         {
@@ -480,10 +470,6 @@
             Assert.IsFalse(result);
         }
 
-        #endregion
-
-        #region LessThan
-
         [TestMethod]
         public void LessThan_Ints_True()
         {
@@ -543,10 +529,6 @@
             var result = comparable.IsLessThan(other);
             Assert.IsFalse(result);
         }
-
-        #endregion
-
-        #region LessThanOrEqualTo
 
         [TestMethod]
         public void LessThanOrEqualTo_Ints_True()
@@ -638,10 +620,6 @@
             Assert.IsFalse(result);
         }
 
-        #endregion
-
-        #region ValueEquals
-
         [TestMethod]
         public void ValueEquals_Ints_True()
         {
@@ -702,10 +680,6 @@
             Assert.IsFalse(result);
         }
 
-        #endregion
-
-        #region Helper Classes
-
         private class Comparable : IComparable
         {
             public int IntProperty { get; set; }
@@ -751,7 +725,5 @@
 
             public NonComparable NonComparable { get; set; }
         }
-
-        #endregion
     }
 }

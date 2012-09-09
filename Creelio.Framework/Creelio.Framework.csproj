@@ -8,8 +8,8 @@
     <ProjectGuid>{E55167AB-5744-4577-8A2E-BC8D474D3B34}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Creelio.Framework.Core</RootNamespace>
-    <AssemblyName>Creelio.Framework.Core</AssemblyName>
+    <RootNamespace>Creelio.Framework</RootNamespace>
+    <AssemblyName>Creelio.Framework</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
@@ -72,6 +72,7 @@
     <Compile Include="NavigationItem.cs" />
     <Compile Include="PagingDataProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsManager.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

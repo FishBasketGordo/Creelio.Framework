@@ -35,6 +35,7 @@
         public void Save(TInterface source)
         {
             SetSettingsProperties(Settings, source);
+            (Settings as ApplicationSettingsBase).Save();
         }
 
         private static void SetSettingsProperties(TInterface target, TInterface source)

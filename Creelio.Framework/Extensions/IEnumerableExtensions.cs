@@ -190,6 +190,21 @@
             }
         }
 
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> collection)
+        {
+            return collection == null || !collection.Any();
+        }
+
+        public static T AggregateOrDefault<T>(this IEnumerable<T> collection, Func<T, T, T> func)
+        {
+            return AggregateOrDefault<T>(collection, func, default(T));
+        }
+
+        public static T AggregateOrDefault<T>(this IEnumerable<T> collection, Func<T, T, T> func, T defaultValue)
+        {
+            return IsNullOrEmpty<T>(collection) ? defaultValue : collection.Aggregate(func);
+        }
+
         public static string ToString<T>(this IEnumerable<T> collection, string separator)
         {
             return ToString<T>(collection, separator, delegate(T item) { return item.ToString(); });

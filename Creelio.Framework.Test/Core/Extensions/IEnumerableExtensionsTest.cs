@@ -30,6 +30,10 @@
 
         private static readonly int TestSequence5Count = TestSequence5.Count();
 
+        private static readonly IEnumerable<object> TestNullSequence = null;
+
+        private static readonly IEnumerable<object> TestEmptySequence = new List<object>();
+
         [TestMethod]
         public void ToListElementsShouldMatchOriginalElements()
         {
@@ -85,10 +89,28 @@
         }
 
         [TestMethod]
+        public void IsNullOrEmptyShouldReturnTrueIfNull()
+        {
+            Assert.IsTrue(TestNullSequence.IsNullOrEmpty());
+        }
+
+        [TestMethod]
+        public void IsNullOrEmptyShouldReturnTrueIfEmpty()
+        {
+            Assert.IsTrue(TestEmptySequence.IsNullOrEmpty());
+        }
+
+        [TestMethod]
+        public void IsNullOrEmptyShouldReturnFalseIfNotNullOrEmpty()
+        {
+            Assert.IsFalse(TestSequence1.IsNullOrEmpty());
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(NullReferenceException))]
         public void NullToStringShouldThrow()
         {
-            GC.KeepAlive((null as IEnumerable<int>).ToString());
+            GC.KeepAlive(TestNullSequence.ToString());
         }
 
         [TestMethod]
@@ -137,7 +159,7 @@
         [ExpectedException(typeof(NullReferenceException))]
         public void NullToCsvShouldThrow()
         {
-            GC.KeepAlive((null as IEnumerable<int>).ToCsv());
+            GC.KeepAlive(TestNullSequence.ToCsv());
         }
 
         [TestMethod]
@@ -228,7 +250,7 @@
         [ExpectedException(typeof(NullReferenceException))]
         public void NullToSingleQuotedCsvShouldThrow()
         {
-            GC.KeepAlive((null as IEnumerable<int>).ToSingleQuotedCsv());
+            GC.KeepAlive(TestNullSequence.ToSingleQuotedCsv());
         }
 
         [TestMethod]
